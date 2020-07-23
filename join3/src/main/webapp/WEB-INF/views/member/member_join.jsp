@@ -7,11 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <title>회원가입폼</title>
-<link rel="stylesheet" type="text/css" href="./css/admin.css" />
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/member.css" />
-<!-- <script src="/springmember/js/jquery.js"></script> -->
+
 <script src="http://code.jquery.com/jquery-latest.js"></script>
-<script src="<%=request.getContextPath()%>/js/member.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
 //우편번호, 주소 Daum API
@@ -20,8 +17,8 @@ function openDaumPostcode() {
 		oncomplete : function(data) {				
 			// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 			// 우편번호와 주소 정보를 해당 필드에 넣고, 커서를 상세주소 필드로 이동한다.
-			document.getElementById('join_zip1').value = data.zonecode;
-			document.getElementById('join_addr1').value = data.address;				
+			document.getElementById('addr_num').value = data.zonecode;
+			document.getElementById('addr1').value = data.address;				
 		}
 	}).open();
 }
@@ -33,7 +30,7 @@ function openDaumPostcode() {
   <h2 class="join_title">회원가입</h2>
   <form name="f" method="post" action="member_join_ok.do"
   		onsubmit="return check()" enctype="multipart/form-data">
-   <!-- 이진파일을 업로드 할려면 enctype 속성을 지정 -->
+  		
    <table id="join_t">
     <tr>
      <th>회원아이디</th>
@@ -48,7 +45,7 @@ function openDaumPostcode() {
     <tr>
      <th>회원비번</th>
      <td>
-      <input type="password" name="join_pwd" id="join_pwd1" size="14"
+      <input type="password" name="passwd1" id="passwd1" size="14"
       class="input_box" />
      </td>
     </tr>
@@ -56,7 +53,7 @@ function openDaumPostcode() {
     <tr>
      <th>회원비번확인</th>
      <td>
-      <input type="password" name="join_pwd2" id="join_pwd2" size="14"
+      <input type="password" name="passwd2" id="passwd2" size="14"
       class="input_box" />
      </td>
     </tr>
@@ -81,10 +78,9 @@ function openDaumPostcode() {
     <tr>
      <th>우편번호</th>
      <td>
-      <input name="join_zip1" id="join_zip1" size="5" class="input_box"
+      <input name="addr_num" id="addr_num" size="5" class="input_box"
       		readonly onclick="post_search()" />
-      <!-- -<input name="join_zip2" id="join_zip2" size="3" class="input_box" readonly 
-      		onclick="post_search()"/> -->
+
       <input type="button" value="우편번호검색" class="input_button"
       		onclick="openDaumPostcode()" />
      </td>
@@ -93,7 +89,7 @@ function openDaumPostcode() {
     <tr>
      <th>주소</th>
      <td>
-      <input name="join_addr1" id="join_addr1" size="50" class="input_box"
+      <input name="addr1" id="addr1" size="50" class="input_box"
       readonly onclick="post_search()" />
      </td>
     </tr>
@@ -101,44 +97,44 @@ function openDaumPostcode() {
     <tr>
      <th>나머지 주소</th>
      <td>
-      <input name="join_addr2" id="join_addr2" size="37" class="input_box" />
+      <input name="addr2" id="addr2" size="37" class="input_box" />
      </td>
     </tr>
     
     <tr>
      <th>집전화번호</th>
      <td>
-<%--      <%@ include file="../../jsp/include/tel_number.jsp"%>   --%>  
-      <select name="join_tel1" >      
+      <%@ include file="../include/tel_number.jsp"%> 
+      <select name="tel1" >      
       	<c:forEach var="t" items="${tel}" begin="0" end="16">
       		<option value="${t}">${t}</option>
       	</c:forEach>        
-      </select>-<input name="join_tel2" id="join_tel2" size="4"
-      maxlength="4" class="input_box" />-<input  name="join_tel3"
-      id="join_tel3" size="4" maxlength="4" class="input_box" />
+      </select>-<input name="tel2" id="tel2" size="4"
+      maxlength="4" class="input_box" />-<input  name="tel3"
+      id="tel3" size="4" maxlength="4" class="input_box" />
      </td>
     </tr>
     
     <tr>
      <th>휴대전화번호</th>
      <td>
-<%--      <%@ include file="../../jsp/include/phone_number.jsp" %> --%>
-     <select name="join_phone1">
+      <%@ include file="../include/phone_number.jsp" %>
+     <select name="phone1">
       <c:forEach var="p" items="${phone}" begin="0" end="5">
        <option value="${p}">${p}</option>
       </c:forEach>
-     </select>-<input name="join_phone2" id="join_phone2" size="4"
-     maxlength="4" class="input_box" />-<input name="join_phone3"
-     id="join_phone3" size="4" maxlength="4" class="input_box" />
+     </select>-<input name="phone2" id="phone2" size="4"
+     maxlength="4" class="input_box" />-<input name="phone3"
+     id="phone3" size="4" maxlength="4" class="input_box" />
      </td>
     </tr>
     
     <tr>
      <th>전자우편</th>
      <td>
-      <input name="join_mailid" id="join_mailid" size="10" 
+      <input name="emailid" id="emailid" size="10" 
       class="input_box" />@<input name="join_maildomain" 
-      id="join_maildomain" size="20" class="input_box" readonly />
+      id="emaildomain" size="20" class="input_box" readonly />
       <!--readonly는 단지 쓰기,수정이 불가능하고 읽기만 가능하다 //-->
       <select name="mail_list" onchange="domain_list()">
       <option value="">=이메일선택=</option>
@@ -162,5 +158,9 @@ function openDaumPostcode() {
    </div>
   </form>
  </div>
+ <%
+ System.out.println("member_join.jsp");
+ %>
+
 </body>
 </html>

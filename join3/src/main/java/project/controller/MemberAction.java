@@ -118,79 +118,44 @@ public class MemberAction {
 //		}
 //
 //	}
-//
-//
-//	/* 회원 가입 저장(fileupload) */
-//	@RequestMapping(value = "/member_join_ok.do", method = RequestMethod.POST)
-//	public String member_join_ok(@RequestParam("join_profile1") MultipartFile mf, 
-//								 MemberBean member,
-//								 HttpServletRequest request,
-//								 Model model) throws Exception {
-//
-//		String filename = mf.getOriginalFilename();
-//		int size = (int) mf.getSize();
-//
-//		String path = request.getRealPath("upload");
-//		System.out.println("mf=" + mf);
-//		System.out.println("filename=" + filename);
-//		System.out.println("size=" + size);
-//		System.out.println("Path=" + path);
-//		int result=0;
-//		
-//		String file[] = new String[2];
-//
-//		// 조건을 추가 하지 않을시 첨부파일을 등록해야만 가입이 가능하다.
-//		if(filename != "" || size> 0) {
-//		StringTokenizer st = new StringTokenizer(filename, ".");
-//		file[0] = st.nextToken();		
-//		file[1] = st.nextToken();		// 확장자	
-//		}
-//		
-//		if(size > 100000){
-//			result=1;
-//			model.addAttribute("result", result);
-//			
-//			return "member/uploadResult";
-//			
-//		}else if(!file[1].equals("jpg") &&
-//				 !file[1].equals("gif") &&
-//				 !file[1].equals("png") ){
-//			// 확장자 판별
-//			result=2;
-//			model.addAttribute("result", result);
-//			
-//			return "member/uploadResult";
-//		}
-//		
-//
-//		if (size > 0) { // 첨부파일이 전송된 경우
-//
-//			mf.transferTo(new File(path + "/" + filename));
-//
-//		}
-//
-//		String join_tel1 = request.getParameter("join_tel1").trim();
-//		String join_tel2 = request.getParameter("join_tel2").trim();
-//		String join_tel3 = request.getParameter("join_tel3").trim();
-//		String join_tel = join_tel1 + "-" + join_tel2 + "-" + join_tel3;
-//		String join_phone1 = request.getParameter("join_phone1").trim();
-//		String join_phone2 = request.getParameter("join_phone2").trim();
-//		String join_phone3 = request.getParameter("join_phone3").trim();
-//		String join_phone = join_phone1 + "-" + join_phone2 + "-" + join_phone3;
-//		String join_mailid = request.getParameter("join_mailid").trim();
-//		String join_maildomain = request.getParameter("join_maildomain").trim();
-//		String join_email = join_mailid + "@" + join_maildomain;
-//
-//		member.setTel(join_tel);
-//		member.setPhone(join_phone);
-//		member.setEmail(join_email);
-//
-//		memberService.insertMember(member);
-//
-//		return "redirect:member_login.do";
-//	}
-//
-//	
+
+
+	
+	/* 회원 가입 저장(fileupload) */
+	@RequestMapping(value = "/member_join_ok.do")
+	public String member_join_ok(MemberBean member,
+								 HttpServletRequest request,
+								 Model model) throws Exception {
+		
+		System.out.println("member_join_ok.do");
+		
+		int result=0;
+
+		String tel1 = request.getParameter("tel1").trim();
+		String tel2 = request.getParameter("tel2").trim();
+		String tel3 = request.getParameter("tel3").trim();
+		String tel = tel1 + "-" + tel2 + "-" + tel3;
+		
+		String phone1 = request.getParameter("phone1").trim();
+		String phone2 = request.getParameter("phone2").trim();
+		String phone3 = request.getParameter("phone3").trim();
+		String phone = phone1 + "-" + phone2 + "-" + phone3;
+		
+		String emailid = request.getParameter("emailid").trim();
+		String emaildomain = request.getParameter("emaildomain").trim();
+		String email = emailid + "@" + emaildomain;
+
+		member.setTel(tel);
+		member.setPhone(phone);
+		member.setEmail(email);
+
+		memberService.insertMember(member);
+
+		return "redirect:member_login.do";
+	}
+
+
+	
 //	/* 로그인 인증 */
 //	@RequestMapping(value = "/member_login_ok.do", method = RequestMethod.POST)
 //	public String member_login_ok(@RequestParam("id") String id, 
