@@ -43,7 +43,6 @@ public class MemberAction {
 	public String member_login() {
 		System.out.print("member_login");
 		return "member/member_login";
-		// member 폴더의 member_login.jsp 뷰 페이지 실행
 	}
 
 //	/* 비번찾기 폼 */
@@ -121,8 +120,8 @@ public class MemberAction {
 
 
 	
-	/* 회원 가입 저장(fileupload) */
-	@RequestMapping(value = "/member_join_ok.do")
+	/* 회원 가입 저장 */
+	@RequestMapping(value = "/member_join_ok.do", method = RequestMethod.POST)
 	public String member_join_ok(MemberBean member,
 								 HttpServletRequest request,
 								 Model model) throws Exception {
@@ -130,27 +129,30 @@ public class MemberAction {
 		System.out.println("member_join_ok.do");
 		
 		int result=0;
-
-		String tel1 = request.getParameter("tel1").trim();
-		String tel2 = request.getParameter("tel2").trim();
-		String tel3 = request.getParameter("tel3").trim();
+		
+		String tel1 = request.getParameter("tel1");
+		String tel2 = request.getParameter("tel2");
+		String tel3 = request.getParameter("tel3");
 		String tel = tel1 + "-" + tel2 + "-" + tel3;
 		
-		String phone1 = request.getParameter("phone1").trim();
-		String phone2 = request.getParameter("phone2").trim();
-		String phone3 = request.getParameter("phone3").trim();
+		String phone1 = request.getParameter("phone1");
+		String phone2 = request.getParameter("phone2");
+		String phone3 = request.getParameter("phone3");
 		String phone = phone1 + "-" + phone2 + "-" + phone3;
 		
-		String emailid = request.getParameter("emailid").trim();
-		String emaildomain = request.getParameter("emaildomain").trim();
+		String emailid = request.getParameter("emailid");
+		String emaildomain = request.getParameter("emaildomain");
 		String email = emailid + "@" + emaildomain;
-
+		
 		member.setTel(tel);
 		member.setPhone(phone);
 		member.setEmail(email);
-
+		System.out.println("member_join_ok.do - member");
+		
 		memberService.insertMember(member);
-
+		
+		System.out.println("member_join_ok.do - E");
+		
 		return "redirect:member_login.do";
 	}
 

@@ -30,6 +30,7 @@ public class MemberDAOImpl {
 
 	/* 회원저장 */
 	public void insertMember(MemberBean m) throws Exception {
+		System.out.println("dao - insertMember");
 		sqlSession.insert("member_join", m);
 	}
 

@@ -20,6 +20,7 @@ public class MemberServiceImpl {
 	}
 	
 	public void insertMember(MemberBean member) throws Exception{
+		System.out.println("service - insertMember");
 		memberDao.insertMember(member);
 	}
 	

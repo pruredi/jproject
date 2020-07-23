@@ -29,7 +29,7 @@ function openDaumPostcode() {
  <div id="join_wrap">
   <h2 class="join_title">회원가입</h2>
   <form name="f" method="post" action="member_join_ok.do"
-  		onsubmit="return check()" enctype="multipart/form-data">
+  		onsubmit="return check()" >
   		
    <table id="join_t">
     <tr>
@@ -109,9 +109,9 @@ function openDaumPostcode() {
       	<c:forEach var="t" items="${tel}" begin="0" end="16">
       		<option value="${t}">${t}</option>
       	</c:forEach>        
-      </select>-<input name="tel2" id="tel2" size="4"
-      maxlength="4" class="input_box" />-<input  name="tel3"
-      id="tel3" size="4" maxlength="4" class="input_box" />
+      </select>-
+      <input name="tel2" id="tel2" size="4" maxlength="4" class="input_box" />-
+      <input  name="tel3" id="tel3" size="4" maxlength="4" class="input_box" />
      </td>
     </tr>
     
@@ -123,18 +123,17 @@ function openDaumPostcode() {
       <c:forEach var="p" items="${phone}" begin="0" end="5">
        <option value="${p}">${p}</option>
       </c:forEach>
-     </select>-<input name="phone2" id="phone2" size="4"
-     maxlength="4" class="input_box" />-<input name="phone3"
-     id="phone3" size="4" maxlength="4" class="input_box" />
+     </select>-
+     <input name="phone2" id="phone2" size="4" maxlength="4" class="input_box" />-
+     <input name="phone3" id="phone3" size="4" maxlength="4" class="input_box" />
      </td>
     </tr>
     
     <tr>
      <th>전자우편</th>
      <td>
-      <input name="emailid" id="emailid" size="10" 
-      class="input_box" />@<input name="join_maildomain" 
-      id="emaildomain" size="20" class="input_box" readonly />
+      <input name="emailid" id="emailid" size="10" class="input_box" />@
+      <input name="emaildomain" id="emaildomain" size="20" class="input_box" readonly />
       <!--readonly는 단지 쓰기,수정이 불가능하고 읽기만 가능하다 //-->
       <select name="mail_list" onchange="domain_list()">
       <option value="">=이메일선택=</option>
@@ -158,9 +157,5 @@ function openDaumPostcode() {
    </div>
   </form>
  </div>
- <%
- System.out.println("member_join.jsp");
- %>
-
 </body>
 </html>
