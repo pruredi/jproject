@@ -51,7 +51,6 @@
    <div id="pwd_close">
     <input type="button" value="닫기" class="input_button"
     onclick="self.close();" />
-    <!-- close()메서드로 공지창을 닫는다. self.close()는 자바스크립트이다. -->
    </div>
   </form>
   </c:if>

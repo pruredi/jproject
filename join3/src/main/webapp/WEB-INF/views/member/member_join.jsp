@@ -15,8 +15,6 @@
 function openDaumPostcode() {
 	new daum.Postcode({
 		oncomplete : function(data) {				
-			// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-			// 우편번호와 주소 정보를 해당 필드에 넣고, 커서를 상세주소 필드로 이동한다.
 			document.getElementById('addr_num').value = data.zonecode;
 			document.getElementById('addr1').value = data.address;				
 		}
@@ -24,12 +22,14 @@ function openDaumPostcode() {
 }
 </script>
 
+
+<script src="<%=request.getContextPath() %>/js/member.js"></script>
+
 </head>
 <body>
  <div id="join_wrap">
   <h2 class="join_title">회원가입</h2>
-  <form name="f" method="post" action="member_join_ok.do"
-  		onsubmit="return check()" >
+  <form name="f" method="post" action="member_join_ok.do" >
   		
    <table id="join_t">
     <tr>
@@ -133,16 +133,15 @@ function openDaumPostcode() {
      <th>전자우편</th>
      <td>
       <input name="emailid" id="emailid" size="10" class="input_box" />@
-      <input name="emaildomain" id="emaildomain" size="20" class="input_box" readonly />
-      <!--readonly는 단지 쓰기,수정이 불가능하고 읽기만 가능하다 //-->
-      <select name="mail_list" onchange="domain_list()">
-      <option value="">=이메일선택=</option>
-      <option value="daum.net">daum.net</option>
-      <option value="nate.com">nate.com</option>
-      <option value="naver.com">naver.com</option>
-      <option value="hotmail.com">hotmail.com</option>
-      <option value="gmail.com">gmail.com</option>
-      <option value="0">직접입력</option>
+      <input name="emaildomain" id="emaildomain" size="20" class="input_box" readOnly/>
+      <select id="mail_list">
+	      <option value="">=이메일선택=</option>
+	      <option value="daum.net">daum.net</option>
+	      <option value="nate.com">nate.com</option>
+	      <option value="naver.com">naver.com</option>
+	      <option value="hotmail.com">hotmail.com</option>
+	      <option value="gmail.com">gmail.com</option>
+	      <option value="0">직접입력</option>
      </select> 
      </td>
     </tr>

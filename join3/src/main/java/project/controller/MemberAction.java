@@ -45,12 +45,12 @@ public class MemberAction {
 		return "member/member_login";
 	}
 
-//	/* 비번찾기 폼 */
-//	@RequestMapping(value = "/pwd_find.do")
-//	public String pwd_find() {
-//		return "member/pwd_find";
-//		// member 폴더의 pwd_find.jsp 뷰 페이지 실행
-//	}
+	/* 비번찾기 폼 */
+	@RequestMapping(value = "/pwd_find.do")
+	public String pwd_find() {
+		return "member/pwd_find";
+		// member 폴더의 pwd_find.jsp 뷰 페이지 실행
+	}
 
 	/* 회원가입 폼 */
 	@RequestMapping(value = "/member_join.do")
@@ -60,63 +60,63 @@ public class MemberAction {
 		// member 폴더의 member_join.jsp 뷰 페이지 실행
 	}
 
-//	
-//	/* 비번찾기 완료 */
-//	@RequestMapping(value = "/pwd_find_ok.do", method = RequestMethod.POST)
-//	public String pwd_find_ok(@ModelAttribute MemberBean mem, HttpServletResponse response, Model model)
-//			throws Exception {
-//		response.setContentType("text/html;charset=UTF-8");
-//		PrintWriter out = response.getWriter();
-//
-//		MemberBean member = memberService.findpwd(mem);
-//
-//		if (member == null) {// 값이 없는 경우
-//
-//			return "member/pwdResult";
-//
-//		} else {
-//
-//			// Mail Server 설정
-//			String charSet = "utf-8";
-//			String hostSMTP = "smtp.naver.com";
-//			String hostSMTPid = "chlchdyd@naver.com";
-//			String hostSMTPpwd = "Pr84528542@"; // 비밀번호 입력해야함
-//
-//			// 보내는 사람 EMail, 제목, 내용
-//			String fromEmail = "chlchdyd@naver.com";
-//			String fromName = "관리자";
-//			String subject = "비밀번호 찾기";
-//
-//			// 받는 사람 E-Mail 주소
-//			String mail = member.getEmail();
-//
-//			try {
-//				HtmlEmail email = new HtmlEmail();
-//				email.setDebug(true);
-//				email.setCharset(charSet);
-//				email.setSSL(true);
-//				email.setHostName(hostSMTP);
-//				email.setSmtpPort(587);
-//
-//				email.setAuthentication(hostSMTPid, hostSMTPpwd);
-//				email.setTLS(true);
-//				email.addTo(mail, charSet);
-//				email.setFrom(fromEmail, fromName, charSet);
-//				email.setSubject(subject);
-//				email.setHtmlMsg("<p align = 'center'>비밀번호 찾기</p><br>" + "<div align='center'> 비밀번호 : "
-//						+ member.getPasswd1() + "</div>");
-//				//member.getJoin_pwd() - 임시비번 설정
-//				email.send();
-//			} catch (Exception e) {
-//				System.out.println(e);
-//			}
-//
-//			model.addAttribute("pwdok", "등록된 email을 확인 하세요~!!");
-//			return "member/pwd_find";
-//
-//		}
-//
-//	}
+
+	/* 비번찾기 완료 */
+	@RequestMapping(value = "/pwd_find_ok.do", method = RequestMethod.POST)
+	public String pwd_find_ok(@ModelAttribute MemberBean mem, HttpServletResponse response, Model model)
+			throws Exception {
+		response.setContentType("text/html;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+
+		MemberBean member = memberService.findpwd(mem);
+
+		if (member == null) {// 값이 없는 경우
+
+			return "member/pwdResult";
+
+		} else {
+
+			// Mail Server 설정
+			String charSet = "utf-8";
+			String hostSMTP = "smtp.naver.com";
+			String hostSMTPid = "chlchdyd@naver.com";
+			String hostSMTPpwd = "Pr84528542@"; // 비밀번호 입력해야함
+
+			// 보내는 사람 EMail, 제목, 내용
+			String fromEmail = "chlchdyd@naver.com";
+			String fromName = "관리자";
+			String subject = "비밀번호 찾기";
+
+			// 받는 사람 E-Mail 주소
+			String mail = member.getEmail();
+
+			try {
+				HtmlEmail email = new HtmlEmail();
+				email.setDebug(true);
+				email.setCharset(charSet);
+				email.setSSL(true);
+				email.setHostName(hostSMTP);
+				email.setSmtpPort(587);
+
+				email.setAuthentication(hostSMTPid, hostSMTPpwd);
+				email.setTLS(true);
+				email.addTo(mail, charSet);
+				email.setFrom(fromEmail, fromName, charSet);
+				email.setSubject(subject);
+				email.setHtmlMsg("<p align = 'center'>비밀번호 찾기</p><br>" + "<div align='center'> 비밀번호 : "
+						+ member.getPasswd1() + "</div>");
+				//member.getJoin_pwd() - 임시비번 설정
+				email.send();
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+
+			model.addAttribute("pwdok", "등록된 email을 확인 하세요~!!");
+			return "member/pwd_find";
+
+		}
+
+	}
 
 
 	
@@ -143,6 +143,7 @@ public class MemberAction {
 		String emailid = request.getParameter("emailid");
 		String emaildomain = request.getParameter("emaildomain");
 		String email = emailid + "@" + emaildomain;
+		
 		
 		member.setTel(tel);
 		member.setPhone(phone);
@@ -346,13 +347,13 @@ public class MemberAction {
 //			return "redirect:member_login.do";
 //		}
 //	}
-//
-//	// 로그아웃
-//	@RequestMapping("member_logout.do")
-//	public String logout(HttpSession session) {
-//		session.invalidate();
-//
-//		return "member/member_logout";
-//	}
+
+	// 로그아웃
+	@RequestMapping("member_logout.do")
+	public String logout(HttpSession session) {
+		session.invalidate();
+
+		return "member/member_logout";
+	}
 
 }
