@@ -22,16 +22,15 @@ public class MemberDAOImpl {
 		return re;
 	}
 	
-
-	/* 비번 검색 */
-	public MemberBean findpwd(MemberBean pm) throws Exception {
-		return (MemberBean) sqlSession.selectOne("pwd_find", pm);
-	}
-
 	/* 회원저장 */
 	public void insertMember(MemberBean m) throws Exception {
 		System.out.println("dao - insertMember");
 		sqlSession.insert("member_join", m);
+	}
+
+	/* 비번 검색 */
+	public MemberBean findpwd(MemberBean pm) throws Exception {
+		return (MemberBean) sqlSession.selectOne("pwd_find", pm);
 	}
 
 	/* 로그인 인증 체크 */
