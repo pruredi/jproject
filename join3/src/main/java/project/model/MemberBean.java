@@ -15,8 +15,11 @@ public class MemberBean {
 	private String tel;				/* 집전화번호 */
 	private String phone;			/* 휴대전화번호 */
 	private String email;			/* 이메일 */
-	private String join_jdate;		/* 가입 날짜 */
-	private String Join_delcont;	/* 탈퇴회원여부 */
+	private String join_joindate;		/* 가입 날짜 */
+	private String join_deldate;		/* 가입 날짜 */
+	private String join_delcont;	/* 탈퇴회원여부 */
+	
+	
 	
 	
 	public int getCode() {
@@ -97,17 +100,22 @@ public class MemberBean {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getJoin_jdate() {
-		return join_jdate;
+	public String getJoin_joindate() {
+		return join_joindate;
 	}
-	public void setJoin_jdate(String join_jdate) {
-		this.join_jdate = join_jdate;
+	public void setJoin_joindate(String join_joindate) {
+		this.join_joindate = join_joindate;
+	}
+	public String getJoin_deldate() {
+		return join_deldate;
+	}
+	public void setJoin_deldate(String join_deldate) {
+		this.join_deldate = join_deldate;
 	}
 	public String getJoin_delcont() {
-		return Join_delcont;
+		return join_delcont;
 	}
 	public void setJoin_delcont(String join_delcont) {
-		Join_delcont = join_delcont;
+		this.join_delcont = join_delcont;
 	}
-	
 }

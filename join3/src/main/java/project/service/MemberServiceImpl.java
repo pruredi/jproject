@@ -12,10 +12,12 @@ public class MemberServiceImpl {
 	private MemberDAOImpl memberDao;
 	
 	public int checkMemberId(String id) throws Exception{
+		System.out.println("service - checkMemberId");
 		return memberDao.checkMemberId(id);
 	}
 	
 	public MemberBean findpwd(MemberBean m)throws Exception {
+		System.out.println("service - findpwd");
 		return memberDao.findpwd(m);
 	}
 	
@@ -25,14 +27,17 @@ public class MemberServiceImpl {
 	}
 	
 	public MemberBean userCheck(String id) throws Exception{
+		System.out.println("service - userCheck");
 		return memberDao.userCheck(id);		
 	}
 	
 	public void updateMember(MemberBean member) throws Exception{
+		System.out.println("service - updateMember");
 		memberDao.updateMember(member);
 	}
 	
 	public void deleteMember(MemberBean member) throws Exception{
+		System.out.println("service - updateMember");
 		memberDao.deleteMember(member);
 	}
 }

@@ -15,8 +15,9 @@ CREATE TABLE joindb (
 	tel VARCHAR2(20), /* 집전화번호 */
 	phone VARCHAR2(20), /* 휴대전화번호 */
 	email VARCHAR2(30), /* 이메일 */
-	join_jdate date, /* 가입 날짜 */
-	Join_delcont  VARCHAR2(10) /* 탈퇴회원여부 */
+	join_joindate date, /* 가입 날짜 */
+	join_deldate date, /* 탈퇴 날짜 */	
+	join_delcont  VARCHAR2(10) /* 탈퇴회원여부 */
 );
 
 

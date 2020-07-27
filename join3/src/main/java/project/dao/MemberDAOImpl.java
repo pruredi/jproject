@@ -12,6 +12,11 @@ public class MemberDAOImpl {
 	@Autowired
 	private SqlSession sqlSession;	
 
+	/* 회원저장 */
+	public void insertMember(MemberBean m) throws Exception {
+		System.out.println("dao - insertMember");
+		sqlSession.insert("member_join", m);
+	}
 
 	/* 아이디 중복 체크 */
 	public int checkMemberId(String id) throws Exception {
@@ -22,12 +27,6 @@ public class MemberDAOImpl {
 		return re;
 	}
 	
-	/* 회원저장 */
-	public void insertMember(MemberBean m) throws Exception {
-		System.out.println("dao - insertMember");
-		sqlSession.insert("member_join", m);
-	}
-
 	/* 비번 검색 */
 	public MemberBean findpwd(MemberBean pm) throws Exception {
 		return (MemberBean) sqlSession.selectOne("pwd_find", pm);
@@ -35,6 +34,7 @@ public class MemberDAOImpl {
 
 	/* 로그인 인증 체크 */
 	public MemberBean userCheck(String id) throws Exception {
+		System.out.println("dao - userCheck");
 		return (MemberBean) sqlSession.selectOne("login_check", id);
 	}
 

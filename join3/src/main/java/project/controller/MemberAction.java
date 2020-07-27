@@ -41,7 +41,7 @@ public class MemberAction {
 	/* 로그인 폼 뷰 */
 	@RequestMapping(value = "/member_login.do")
 	public String member_login() {
-		System.out.print("member_login");
+		System.out.println("member_login");
 		return "member/member_login";
 	}
 
@@ -158,89 +158,102 @@ public class MemberAction {
 
 
 	
-//	/* 로그인 인증 */
-//	@RequestMapping(value = "/member_login_ok.do", method = RequestMethod.POST)
-//	public String member_login_ok(@RequestParam("id") String id, 
-//			                      @RequestParam("pwd") String pwd,
-//			                      HttpSession session, 
-//			                      Model model) throws Exception {
-//		int result=0;		
-//		MemberBean m = memberService.userCheck(id);
-//
-//		if (m == null) {	// 등록되지 않은 회원일때
-//			
-//			result = 1;
-//			model.addAttribute("result", result);
-//			
-//			return "member/loginResult";
-//			
-//		} else {			// 등록된 회원일때
-//			if (m.getPasswd1().equals(pwd)) {// 비번이 같을때
-//				session.setAttribute("id", id);
-//
-//				String join_name = m.getJoin_name();
-//
-//				model.addAttribute("join_name", join_name);
-//
-//				return "member/main";
-//				
-//			} else {// 비번이 다를때
-//				result = 2;
-//				model.addAttribute("result", result);
-//				
-//				return "member/loginResult";				
-//			}
-//		}
-//
-//	}
-//
-//	/* 회원정보 수정 폼 */
-//	@RequestMapping(value = "/member_edit.do")
-//	public String member_edit(HttpSession session, Model m) throws Exception {
-//
-//		String id = (String) session.getAttribute("id");
-//
-//		MemberBean editm = memberService.userCheck(id);
-//
-//		String join_tel = editm.getTel();
-//		StringTokenizer st01 = new StringTokenizer(join_tel, "-");
-//		// java.util 패키지의 StringTokenizer 클래스는 첫번째 전달인자를
-//		// 두번째 -를 기준으로 문자열을 파싱해준다.
-//		String join_tel1 = st01.nextToken();// 첫번째 전화번호 저장
-//		String join_tel2 = st01.nextToken(); // 두번째 전번 저장
-//		String join_tel3 = st01.nextToken();// 세번째 전번 저장
-//
-//		String join_phone = editm.getPhone();
-//		StringTokenizer st02 = new StringTokenizer(join_phone, "-");
-//		// java.util 패키지의 StringTokenizer 클래스는 첫번째 전달인자를
-//		// 두번째 -를 기준으로 문자열을 파싱해준다.
-//		String join_phone1 = st02.nextToken();// 첫번째 전화번호 저장
-//		String join_phone2 = st02.nextToken(); // 두번째 전번 저장
-//		String join_phone3 = st02.nextToken();// 세번째 전번 저장
-//
-//		String join_email = editm.getEmail();
-//		StringTokenizer st03 = new StringTokenizer(join_email, "@");
-//		// java.util 패키지의 StringTokenizer 클래스는 첫번째 전달인자를
-//		// 두번째 @를 기준으로 문자열을 파싱해준다.
-//		String join_mailid = st03.nextToken();// 첫번째 전화번호 저장
-//		String join_maildomain = st03.nextToken(); // 두번째 전번 저장
-//
-//		m.addAttribute("editm", editm);
-//		m.addAttribute("join_tel1", join_tel1);
-//		m.addAttribute("join_tel2", join_tel2);
-//		m.addAttribute("join_tel3", join_tel3);
-//		m.addAttribute("join_phone1", join_phone1);
-//		m.addAttribute("join_phone2", join_phone2);
-//		m.addAttribute("join_phone3", join_phone3);
-//		m.addAttribute("join_mailid", join_mailid);
-//		m.addAttribute("join_maildomain", join_maildomain);
-//		// 따로 따로 해 놓아야 view 페이지에서 출력이 가능하다.
-//		
-//		return "member/member_edit";
-//	}
-//
-//	
-//	/* 회원정보 수정(fileupload) (첨부파일 저장) */
+	/* 로그인 인증 */
+	@RequestMapping(value = "/member_login_ok.do", method = RequestMethod.POST)
+	public String member_login_ok(@RequestParam("id") String id, 
+			                      @RequestParam("pwd") String pwd,
+			                      HttpSession session, 
+			                      Model model) throws Exception {
+		System.out.println("/member_login_ok.do");
+		int result=0;		
+		MemberBean mb = memberService.userCheck(id);
+
+		if (mb == null) {	// 등록되지 않은 회원일때
+			
+			result = 1;
+			model.addAttribute("result", result);
+			
+			System.out.println("등록되지 않은 회원일때");
+			return "member/loginResult";
+			
+		} else {			// 등록된 회원일때
+			if (mb.getPasswd1().equals(pwd)) {// 비번이 같을때
+				session.setAttribute("id", id);
+
+				String join_name = mb.getJoin_name();
+
+				model.addAttribute("join_name", join_name);
+				
+				System.out.println("id = " + id);
+				return "member/main";
+				
+			} else {// 비번이 다를때
+				result = 2;
+				model.addAttribute("result", result);
+				
+				System.out.println("비번이 다를때");
+				return "member/loginResult";				
+			}
+		}
+
+	}
+
+	/* 회원정보 수정 폼 */
+	@RequestMapping(value = "/member_edit.do")
+	public String member_edit(HttpSession session, Model m) throws Exception {
+		System.out.println("/member_edit.do");
+		
+		String id = (String) session.getAttribute("id");
+
+		MemberBean mbbe = memberService.userCheck(id);
+		
+		
+		String tel = mbbe.getTel();
+		StringTokenizer st01 = new StringTokenizer(tel, "-");
+		// java.util 패키지의 StringTokenizer 클래스는 첫번째 전달인자를
+		// 두번째 -를 기준으로 문자열을 파싱해준다.
+		String tel1 = st01.nextToken();// 첫번째 전화번호 저장
+		String tel2 = st01.nextToken(); // 두번째 전번 저장
+		String tel3 = st01.nextToken();// 세번째 전번 저장
+		
+		
+		String phone = mbbe.getPhone();
+		StringTokenizer st02 = new StringTokenizer(phone, "-");
+		// java.util 패키지의 StringTokenizer 클래스는 첫번째 전달인자를
+		// 두번째 -를 기준으로 문자열을 파싱해준다.
+		String phone1 = st02.nextToken();// 첫번째 전화번호 저장
+		String phone2 = st02.nextToken(); // 두번째 전번 저장
+		String phone3 = st02.nextToken();// 세번째 전번 저장
+		
+		
+		String email = mbbe.getEmail();
+		email += "daum.net";
+		// 임시로 추가한 이메일 도메인
+		StringTokenizer st03 = new StringTokenizer(email, "@");
+		String emailid = st03.nextToken();// 첫번째 전화번호 저장
+		String emaildomain = st03.nextToken(); // 두번째 전번 저장
+		
+		System.out.println(email + " = " + emailid + emaildomain);
+		
+		m.addAttribute("mbbe", mbbe);
+		m.addAttribute("tel1", tel1);
+		m.addAttribute("tel2", tel2);
+		m.addAttribute("tel3", tel3);
+		m.addAttribute("phone1", phone1);
+		m.addAttribute("phone2", phone2);
+		m.addAttribute("phone3", phone3);
+		m.addAttribute("emailid", emailid);
+		m.addAttribute("emaildomain", emaildomain);
+		// 따로 따로 해 놓아야 view 페이지에서 출력이 가능하다.
+		
+		System.out.println("mbbe : " + mbbe);
+		return "member/member_edit";
+	}
+
+
+	
+	
+//	/* 회원정보 수정 */
 //	@RequestMapping(value = "/member_edit_ok.do", method = RequestMethod.POST)
 //	public String member_edit_ok(@RequestParam("join_profile1") MultipartFile mf, 
 //								 MemberBean member,
@@ -257,36 +270,7 @@ public class MemberAction {
 //		String file[] = new String[2];
 //
 //		
-//	if(filename != ""){	 // 첨부파일이 전송된 경우		
-//		
-//		StringTokenizer st = new StringTokenizer(filename, ".");
-//		file[0] = st.nextToken();		
-//		file[1] = st.nextToken();		// 확장자	
-//		
-//		if(size > 100000){
-//			result=1;
-//			model.addAttribute("result", result);
 //			
-//			return "member/uploadResult";
-//			
-//		}else if(!file[1].equals("jpg") &&
-//				 !file[1].equals("gif") &&
-//				 !file[1].equals("png") ){
-//			
-//			result=2;
-//			model.addAttribute("result", result);
-//			
-//			return "member/uploadResult";
-//		}	
-//		
-//	}
-//		
-//		if (size > 0) { // 첨부파일이 전송된 경우
-//
-//			mf.transferTo(new File(path + "/" + filename));
-//			// 파일을 보낼때 중복을 없애기 위해서 파일명에 날짜 + 난수를 넣는다
-//
-//		}		
 //		
 //
 //		String id = (String) session.getAttribute("id");
@@ -319,6 +303,9 @@ public class MemberAction {
 //		return "member/main";
 //	}
 //
+	
+	
+	
 //	/* 회원정보 삭제 폼 */
 //	@RequestMapping(value = "/member_del.do")
 //	public String member_del(HttpSession session, Model dm) throws Exception {

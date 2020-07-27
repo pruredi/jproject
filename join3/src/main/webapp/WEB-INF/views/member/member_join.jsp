@@ -66,7 +66,7 @@ function openDaumPostcode() {
     </tr>
     
     <tr>
-     <th>주인등록 번호</th>
+     <th>주민등록 번호</th>
      <td>
       <input name="join_date" id="join_date" size="7" class="input_box" maxlength="6" />
      -
