@@ -16,11 +16,6 @@
 		 $("#pwd").val("").focus();
 		 return false;
 	 }
-	 if($.trim($("#del_cont").val())==""){
-		 alert("탈퇴사유를 입력하세요!");
-		 $("#del_cont").val("").focus();
-		 return false;
-	 }
  }
 </script>
 </head>
@@ -45,14 +40,7 @@
       			class="input_box" />
       </td>
      </tr>
-     
-<!--      <tr>
-      <th>탈퇴사유</th>
-      <td>
-      <textarea name="del_cont" id="del_cont" rows="7" 
-      			cols="30" class="input_box"></textarea>
-      </td>
-     </tr> -->
+
     </table>
     
     <div id="del_menu">

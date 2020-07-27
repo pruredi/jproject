@@ -246,7 +246,6 @@ public class MemberAction {
 		m.addAttribute("emaildomain", emaildomain);
 		// 따로 따로 해 놓아야 view 페이지에서 출력이 가능하다.
 		
-		System.out.println("mbbe : " + mbbe);
 		return "member/member_edit";
 	}
 
@@ -306,18 +305,18 @@ public class MemberAction {
 	
 	
 	
-//	/* 회원정보 삭제 폼 */
-//	@RequestMapping(value = "/member_del.do")
-//	public String member_del(HttpSession session, Model dm) throws Exception {
-//
-//		String id = (String) session.getAttribute("id");
-//		MemberBean deleteM = memberService.userCheck(id);
-//		dm.addAttribute("d_id", id);
-//		dm.addAttribute("d_name", deleteM.getJoin_name());
-//
-//		return "member/member_del";
-//	}
-//
+	/* 회원정보 삭제 폼 */
+	@RequestMapping(value = "/member_del.do")
+	public String member_del(HttpSession session, Model dm) throws Exception {
+
+		String id = (String) session.getAttribute("id");
+		MemberBean deleteM = memberService.userCheck(id);
+		dm.addAttribute("d_id", id);
+		dm.addAttribute("d_name", deleteM.getJoin_name());
+
+		return "member/member_del";
+	}
+
 //	/* 회원정보 삭제 완료 */
 //	@RequestMapping(value = "/member_del_ok.do", method = RequestMethod.POST)
 //	public String member_del_ok(@RequestParam("pwd") String pass, 
