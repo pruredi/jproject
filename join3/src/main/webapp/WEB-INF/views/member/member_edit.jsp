@@ -41,7 +41,7 @@ function openDaumPostcode() {
     <tr>
      <th>회원비번</th>
      <td>
-      <input type="password" name="join_pwd" id="join_pwd1" size="14"
+      <input type="password" name="passwd1" id="passwd1" size="14"
       class="input_box" />
      </td>
     </tr>
@@ -49,19 +49,28 @@ function openDaumPostcode() {
     <tr>
      <th>회원비번확인</th>
      <td>
-      <input type="password" name="join_pwd2" id="join_pwd2" size="14"
+      <input type="password" name="passwd2" id="passwd2" size="14"
       class="input_box" />
      </td>
     </tr>
     
     <tr>
-     <th>회원이름</th>
+     <th>성명</th>
      <td>
       <input name="join_name" id="join_name" size="14" class="input_box"
       value="${mbbe.join_name}" />
      </td>
     </tr>
     
+    <tr>
+     <th>주민등록 번호</th>
+     <td>
+      <input name="join_date" id="join_date" size="7" class="input_box" maxlength="6" value="${mbbe.join_date}"/>
+     -
+      <input type="password" name="join_num" id="join_num" size="8" maxlength="7" value="${mbbe.join_num}"
+      class="input_box" />
+     </td>
+    </tr>
     
     <tr>
      <th>우편번호</th>
@@ -92,6 +101,7 @@ function openDaumPostcode() {
     <tr>
      <th>집전화번호</th>
      <td>
+      <%@ include file="../include/tel_number.jsp"%>
       <select name="tel1" >      
       <c:forEach var="t" items="${tel}" begin="0" end="16">
       	<option value="${t}" <c:if test="${tel1 == t}">${'selected'}
@@ -107,6 +117,7 @@ function openDaumPostcode() {
     <tr>
      <th>휴대전화번호</th>
      <td>
+     <%@ include file="../include/phone_number.jsp" %>
      <select name="phone1">
       <c:forEach var="p" items="${phone}" begin="0" end="5">
        <option value="${p}" <c:if test="${phone1 == p}">${'selected'}
