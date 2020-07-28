@@ -102,7 +102,7 @@ function openDaumPostcode() {
     </tr>
     
     <tr>
-     <th>집전화번호</th>
+     <th>전화번호</th>
      <td>
       <%@ include file="../include/tel_number.jsp"%> 
       <select name="tel1" >      

@@ -82,6 +82,8 @@
 				$("#join_num").focus();
 		});
 		
+		
+		
 		// 도메인 선택
 		$("#mail_list").change(function(){
 			if($("#mail_list").val()==""){		// 직접 입력 선택
@@ -92,6 +94,10 @@
 				$("#emaildomain").attr("readOnly","readOnly");				
 			}
 		});
+		
+		
+		
+		
 		
 		// 유효성 검사
 		$("form").submit(function(){
@@ -112,84 +118,86 @@
 				return false;
 			}
 			//비번 틀릴시
+			if($("#passwd1").val()==$("#passwd2").val()){
+				alert("비밀번호와 비밀번호 확인을 동일하게 입력하세요.");
+				$("#passwd1").focus();
+				return false;
+			}
 			
 			if($("#join_name").val()==""){
 				alert("이름을 입력하세요.");
 				$("#join_name").focus();
 				return false;
 			}
-			if($("#jumin1").val()==""){
+			if($("#join_date").val()==""){
 				alert("주민번호 앞자리를 입력하세요.");
-				$("#jumin1").focus();
+				$("#join_date").focus();
 				return false;
 			}
-			if($("#jumin1").val().length != 6){
-				alert("주민번호 앞자리 6자리를 입력하세요.");
-				$("#jumin1").val("").focus();
+			if($("#join_date").val().length != 6){
+				alert("주민번호 앞자리를 6자리로 입력하세요.");
+				$("#join_date").val("").focus();
 				return false;
 			}
 			// isNaN() : 문자가 포함되면 true를 리턴하는 함수
-			if(isNaN($("#jumin1").val())){
+			if(isNaN($("#join_date").val())){
 				alert("숫자만 입력하세요.");
-				$("#jumin1").val("").focus();
+				$("#join_date").val("").focus();
 				return false;
 		    }
-			if($("#jumin2").val()==""){
+			if($("#join_num").val()==""){
 				alert("주민번호 뒷자리를 입력하세요.");
-				$("#jumin2").focus();
+				$("#join_num").focus();
 				return false;
 			}
-			if($("#jumin2").val().length != 7){
+			if($("#join_num").val().length != 7){
 				alert("주민번호 뒷자리 7자리를 입력하세요.");
-				$("#jumin2").val("").focus();
+				$("#join_num").val("").focus();
 				return false;
 			}
 			// isNaN() : 문자가 포함되면 true를 리턴하는 함수
-			if(isNaN($("#jumin2").val())){
+			if(isNaN($("#join_num").val())){
 				alert("숫자만 입력하세요.");
-				$("#jumin2").val("").focus();
+				$("#join_num").val("").focus();
 				return false;
 		    }
-			if($("#mailid").val()==""){
-				alert("EMail주소를 입력하세요.");
-				$("#mailid").focus();
+			// 우편번호
+
+			if($("#addr_num").val()==""){
+				alert("우편번호를 입력하세요.");
+				$("#addr_num").focus();
 				return false;
 			}
-			if($("#domain").val()==""){
-				alert("도메인을 입력하세요.");
-				$("#domain").focus();
+			// 주소
+			if($("#addr1").val()==""){
+				alert("주소를 입력하세요.");
+				$("#addr1").focus();
 				return false;
 			}
-			if($("#tel1").val()==""){
-				alert("전화번호 앞자리를 입력하세요.");
-				$("#tel1").focus();
+			if($("#addr2").val()==""){
+				alert("나머지 주소를 입력하세요.");
+				$("#addr2").focus();
 				return false;
 			}
+			
+			
+
 			if(isNaN($("#tel1").val())){
-				alert("숫자만 입력하세요.");
+				alert("전화번호 앞자리는 숫자만 입력하세요.");
 				$("#tel1").val("").focus();
 				return false;
 			}
-			if($("#tel2").val()==""){
-				alert("전화번호 중간자리를 입력하세요.");
-				$("#tel2").focus();
-				return false;
-			}
 			if(isNaN($("#tel2").val())){
-				alert("숫자만 입력하세요.");
+				alert("전화번호 중간자리는 숫자만 입력하세요.");
 				$("#tel2").val("").focus();
 				return false;
 			}
-			if($("#tel3").val()==""){
-				alert("전화번호 끝자리를 입력하세요.");
-				$("#tel3").focus();
-				return false;
-			}
 			if(isNaN($("#tel3").val())){
-				alert("숫자만 입력하세요.");
+				alert("전화번호 끝자리는 숫자만 입력하세요.");
 				$("#tel3").val("").focus();
 				return false;
 			}
+			
 			if($("#phone1").val()==""){
 				alert("핸드폰 앞자리를 선택 하세요.");
 				return false;
@@ -200,7 +208,7 @@
 				return false;
 			}
 			if(isNaN($("#phone2").val())){
-				alert("숫자만 입력하세요.");
+				alert("핸드폰 중간자리는 숫자만 입력하세요.");
 				$("#phone2").val("").focus();
 				return false;
 			}
@@ -210,25 +218,22 @@
 				return false;
 			}
 			if(isNaN($("#phone3").val())){
-				alert("숫자만 입력하세요.");
+				alert("핸드폰 끝자리는 숫자만 입력하세요.");
 				$("#phone3").val("").focus();
 				return false;
 			}
-			if($("#post").val()==""){
-				alert("우편번호를 입력하세요.");
-				$("#post").focus();
+
+			if($("#emailid").val()==""){
+				alert("EMail주소를 입력하세요.");
+				$("#emailid").focus();
 				return false;
 			}
-			if($("#address").val()==""){
-				alert("주소를 입력하세요.");
-				$("#address").focus();
+			if($("#emaildomain").val()==""){
+				alert("도메인을 입력하세요.");
+				$("#emaildomain").focus();
 				return false;
 			}
-			if($("#male").is(":checked")==false &&
-			   $("#female").is(":checked")==false){
-				alert("남.여 중에서 1개를 선택 하세요");
-				return false;
-			}
+
 			
 
 			
