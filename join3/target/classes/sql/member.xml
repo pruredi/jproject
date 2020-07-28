@@ -31,18 +31,20 @@
 <!--  회원수정 -->
     <update id="member_edit" parameterType="member">
      update joindb set 
-     join_pwd=#{join_pwd},join_name=#{join_name},
-     join_zip1=#{join_zip1},join_addr1=#{join_addr1},
-     join_addr2=#{join_addr2},join_tel=#{join_tel},join_phone=#{join_phone},
-     join_email=#{join_email},join_profile=#{join_profile,jdbcType=VARCHAR} 
+     passwd1=#{passwd1},passwd2=#{passwd2},
+     join_name=#{join_name},
+     join_date=#{join_date},join_num=#{join_num},
+     addr_num=#{addr_num},addr1=#{addr1},addr2=#{addr2},
+     tel=#{tel},phone=#{phone},email=#{email}, 
      where join_id=#{join_id}
     </update>    
     
 <!--     회원삭제 -->
     <update id="member_delete" parameterType="member">
-      update joindb set join_delcont=#{join_delcont}, join_state=2
-      <!-- ,join_deldate=sysdate -->
-       where join_id=#{join_id}
+      update joindb set
+      join_delcont=2,
+      join_deldate=sysdate
+      where join_id=#{join_id}
     </update>
 
 </mapper>

@@ -148,7 +148,6 @@ public class MemberAction {
 		member.setTel(tel);
 		member.setPhone(phone);
 		member.setEmail(email);
-		System.out.println("member_join_ok.do - member");
 		
 		memberService.insertMember(member);
 		
@@ -185,14 +184,12 @@ public class MemberAction {
 
 				model.addAttribute("join_name", join_name);
 				
-				System.out.println("id = " + id);
 				return "member/main";
 				
 			} else {// 비번이 다를때
 				result = 2;
 				model.addAttribute("result", result);
 				
-				System.out.println("비번이 다를때");
 				return "member/loginResult";				
 			}
 		}
@@ -210,7 +207,6 @@ public class MemberAction {
 		
 		String tel = mbbe.getTel();
 		
-		System.out.println(tel);
 
 		if(tel.length() > 5) {
 			StringTokenizer st01 = new StringTokenizer(tel, "-");
@@ -241,7 +237,6 @@ public class MemberAction {
 		String emailid = st03.nextToken();// 첫번째 전화번호 저장
 		String emaildomain = st03.nextToken(); // 두번째 전번 저장
 		
-		System.out.println(email + " = " + emailid + emaildomain);
 		
 		m.addAttribute("mbbe", mbbe);
 		m.addAttribute("phone1", phone1);
@@ -251,106 +246,99 @@ public class MemberAction {
 		m.addAttribute("emaildomain", emaildomain);
 		// 따로 따로 해 놓아야 view 페이지에서 출력이 가능하다.
 		
+		System.out.println("/member_edit.do - e");
 		return "member/member_edit";
 	}
 
 
 	
 	
-//	/* 회원정보 수정 */
-//	@RequestMapping(value = "/member_edit_ok.do", method = RequestMethod.POST)
-//	public String member_edit_ok(@RequestParam("join_profile1") MultipartFile mf, 
-//								 MemberBean member,
-//								 HttpServletRequest request, 
-//								 HttpSession session, 
-//								 Model model) throws Exception {
-//
-//		String filename = mf.getOriginalFilename();
-//		int size = (int) mf.getSize();		
-//		
-//		String path = request.getRealPath("upload");
-//		
-//		int result=0;		
-//		String file[] = new String[2];
-//
-//		
-//			
-//		
-//
-//		String id = (String) session.getAttribute("id");
-//
-//		String join_tel1 = request.getParameter("join_tel1").trim();
-//		String join_tel2 = request.getParameter("join_tel2").trim();
-//		String join_tel3 = request.getParameter("join_tel3").trim();
-//		String join_tel = join_tel1 + "-" + join_tel2 + "-" + join_tel3;
-//		String join_phone1 = request.getParameter("join_phone1").trim();
-//		String join_phone2 = request.getParameter("join_phone2").trim();
-//		String join_phone3 = request.getParameter("join_phone3").trim();
-//		String join_phone = join_phone1 + "-" + join_phone2 + "-" + join_phone3;
-//		String join_mailid = request.getParameter("join_mailid").trim();
-//		String join_maildomain = request.getParameter("join_maildomain").trim();
-//		String join_email = join_mailid + "@" + join_maildomain;
-//		// 전화번호/핸드폰/메일주소를 결합하는 작업
-//		
-//		
-//		MemberBean editm = this.memberService.userCheck(id);		
-//		
-//		member.setJoin_id(id);
-//		member.setTel(join_tel);
-//		member.setPhone(join_phone);
-//		member.setEmail(join_email);
-//
-//		memberService.updateMember(member);// 수정 메서드 호출
-//
-//		model.addAttribute("join_name", member.getJoin_name());
-//
-//		return "member/main";
-//	}
-//
+	/* 회원정보 수정 */
+	@RequestMapping(value = "/member_edit_ok.do", method = RequestMethod.POST)
+	public String member_edit_ok(@RequestParam("join_profile1") MultipartFile mf, 
+								 MemberBean member,
+								 HttpServletRequest request, 
+								 HttpSession session, 
+								 Model model) throws Exception {
+		System.out.println("/member_edit_ok.do");
+		
+		String id = (String) session.getAttribute("id");
+
+		
+		String join_tel1 = request.getParameter("join_tel1").trim();
+		String join_tel2 = request.getParameter("join_tel2").trim();
+		String join_tel3 = request.getParameter("join_tel3").trim();
+		String join_tel = join_tel1 + "-" + join_tel2 + "-" + join_tel3;
+		
+		String join_phone1 = request.getParameter("join_phone1").trim();
+		String join_phone2 = request.getParameter("join_phone2").trim();
+		String join_phone3 = request.getParameter("join_phone3").trim();
+		String join_phone = join_phone1 + "-" + join_phone2 + "-" + join_phone3;
+		
+		String join_mailid = request.getParameter("join_mailid").trim();
+		String join_maildomain = request.getParameter("join_maildomain").trim();
+		String join_email = join_mailid + "@" + join_maildomain;
+		// 전화번호/핸드폰/메일주소를 결합하는 작업
+		
+		
+		MemberBean editm = this.memberService.userCheck(id);		
+		
+		member.setJoin_id(id);
+		member.setTel(join_tel);
+		member.setPhone(join_phone);
+		member.setEmail(join_email);
+
+		memberService.updateMember(member);// 수정 메서드 호출
+
+		model.addAttribute("join_name", member.getJoin_name());
+
+		return "member/main";
+	}
+
 	
 	
 	
 	/* 회원정보 삭제 폼 */
 	@RequestMapping(value = "/member_del.do")
 	public String member_del(HttpSession session, Model dm) throws Exception {
-
-		String id = (String) session.getAttribute("id");
-		MemberBean deleteM = memberService.userCheck(id);
-		dm.addAttribute("d_id", id);
+		System.out.println("/member_del.do");
+		
+		String join_id = (String) session.getAttribute("join_id");
+		MemberBean deleteM = memberService.userCheck(join_id);
+		dm.addAttribute("d_id", join_id);
 		dm.addAttribute("d_name", deleteM.getJoin_name());
-
+		
 		return "member/member_del";
 	}
 
-//	/* 회원정보 삭제 완료 */
-//	@RequestMapping(value = "/member_del_ok.do", method = RequestMethod.POST)
-//	public String member_del_ok(@RequestParam("pwd") String pass, 
-//							    @RequestParam("del_cont") String del_cont,
-//							    HttpSession session) throws Exception {
-//
-//		String id = (String) session.getAttribute("id");
-//		MemberBean member = this.memberService.userCheck(id);
-//
-//		if (!member.getPasswd1().equals(pass)) {
-//
-//			return "member/deleteResult";
-//			
-//		} else {// 비번이 같은 경우
-//			
-//			String up = session.getServletContext().getRealPath("upload");
-//			System.out.println("up:"+up);
-//			
-//			MemberBean delm = new MemberBean();
-//			delm.setJoin_id(id);
-//			delm.setJoin_delcont(del_cont);
-//
-//			memberService.deleteMember(delm);// 삭제 메서드 호출
-//
-//			session.invalidate();	// 세션만료
-//
-//			return "redirect:member_login.do";
-//		}
-//	}
+	/* 회원정보 삭제 완료 */
+	@RequestMapping(value = "/member_del_ok.do", method = RequestMethod.POST)
+	public String member_del_ok(@RequestParam("pwd") String pass, 
+							    @RequestParam("join_delcont") String join_delcont,
+							    HttpSession session) throws Exception {
+		System.out.println("/member_del_ok.do");
+		
+		String id = (String) session.getAttribute("id");
+		MemberBean member = this.memberService.userCheck(id);
+
+		if (!member.getPasswd1().equals(pass)) {
+
+			return "member/deleteResult";
+			
+		} else {// 비번이 같은 경우
+			
+			
+			MemberBean delm = new MemberBean();
+			delm.setJoin_id(id);
+			delm.setJoin_delcont(join_delcont);
+
+			memberService.deleteMember(delm);// 삭제 메서드 호출
+
+			session.invalidate();	// 세션만료
+
+			return "redirect:member_login.do";
+		}
+	}
 
 	// 로그아웃
 	@RequestMapping("member_logout.do")
