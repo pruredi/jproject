@@ -205,18 +205,27 @@ public class MemberAction {
 		System.out.println("/member_edit.do");
 		
 		String id = (String) session.getAttribute("id");
-
+		
 		MemberBean mbbe = memberService.userCheck(id);
 		
-		
 		String tel = mbbe.getTel();
-		StringTokenizer st01 = new StringTokenizer(tel, "-");
-		// java.util 패키지의 StringTokenizer 클래스는 첫번째 전달인자를
-		// 두번째 -를 기준으로 문자열을 파싱해준다.
-		String tel1 = st01.nextToken();// 첫번째 전화번호 저장
-		String tel2 = st01.nextToken(); // 두번째 전번 저장
-		String tel3 = st01.nextToken();// 세번째 전번 저장
 		
+		System.out.println(tel);
+
+		if(tel.length() > 5) {
+			StringTokenizer st01 = new StringTokenizer(tel, "-");
+			// java.util 패키지의 StringTokenizer 클래스는 첫번째 전달인자를
+			// 두번째 -를 기준으로 문자열을 파싱해준다.
+			String tel1 = st01.nextToken();// 첫번째 전화번호 저장
+			String tel2 = st01.nextToken(); // 두번째 전번 저장
+			String tel3 = st01.nextToken();// 세번째 전번 저장
+			
+			// m.addAttribute("mbbe", mbbe);
+			m.addAttribute("tel1", tel1);
+			m.addAttribute("tel2", tel2);
+			m.addAttribute("tel3", tel3);
+		}
+
 		
 		String phone = mbbe.getPhone();
 		StringTokenizer st02 = new StringTokenizer(phone, "-");
@@ -228,8 +237,6 @@ public class MemberAction {
 		
 		
 		String email = mbbe.getEmail();
-		email += "daum.net";
-		// 임시로 추가한 이메일 도메인
 		StringTokenizer st03 = new StringTokenizer(email, "@");
 		String emailid = st03.nextToken();// 첫번째 전화번호 저장
 		String emaildomain = st03.nextToken(); // 두번째 전번 저장
@@ -237,9 +244,6 @@ public class MemberAction {
 		System.out.println(email + " = " + emailid + emaildomain);
 		
 		m.addAttribute("mbbe", mbbe);
-		m.addAttribute("tel1", tel1);
-		m.addAttribute("tel2", tel2);
-		m.addAttribute("tel3", tel3);
 		m.addAttribute("phone1", phone1);
 		m.addAttribute("phone2", phone2);
 		m.addAttribute("phone3", phone3);

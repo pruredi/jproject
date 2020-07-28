@@ -1,17 +1,17 @@
 ﻿$(document).ready(function(){
 		
 		// ID중복검사
-//		$("#idcheck").click(function(){
-//			if($("#id").val()==""){
-//				alert("ID를 입력하세요.");
-//				$("#id").focus();
-//				return false;
-//			}else{
-//				// open("팝업창에 실행될 문서명","윈도우이름","옵션")
-//				var ref="idcheck.jsp?id="+$("#id").val();
-//				window.open(ref,"mywin","width=250,height=150");
-//			}			
-//		});
+		$("#idcheck").click(function(){
+			if($("#id").val()==""){
+				alert("ID를 입력하세요.");
+				$("#id").focus();
+				return false;
+			}else{
+				// open("팝업창에 실행될 문서명","윈도우이름","옵션")
+				var ref="idcheck.jsp?id="+$("#id").val();
+				window.open(ref,"mywin","width=250,height=150");
+			}			
+		});
 //	
 //		// ajax로 ID중복 검사
 //		$("#idcheck").click(function(){	
@@ -117,8 +117,9 @@
 				$("#passwd2").focus();
 				return false;
 			}
+			
 			//비번 틀릴시
-			if($("#passwd1").val()==$("#passwd2").val()){
+			if($("#passwd1").val() != $("#passwd2").val()){
 				alert("비밀번호와 비밀번호 확인을 동일하게 입력하세요.");
 				$("#passwd1").focus();
 				return false;
@@ -141,7 +142,7 @@
 			}
 			// isNaN() : 문자가 포함되면 true를 리턴하는 함수
 			if(isNaN($("#join_date").val())){
-				alert("숫자만 입력하세요.");
+				alert("주민번호 앞자리는 숫자만 입력하세요.");
 				$("#join_date").val("").focus();
 				return false;
 		    }
@@ -157,7 +158,7 @@
 			}
 			// isNaN() : 문자가 포함되면 true를 리턴하는 함수
 			if(isNaN($("#join_num").val())){
-				alert("숫자만 입력하세요.");
+				alert("주민번호 뒷자리는 숫자만 입력하세요.");
 				$("#join_num").val("").focus();
 				return false;
 		    }
@@ -181,16 +182,25 @@
 			}
 			
 			
-
-			if(isNaN($("#tel1").val())){
-				alert("전화번호 앞자리는 숫자만 입력하세요.");
-				$("#tel1").val("").focus();
-				return false;
+			
+			if($("#tel2").val() != ""){
+				if($("#tel2").val().length < 3){
+					alert("전화번호 중간자리는 3자리 이상을 입력하세요.");
+					$("#tel2").val("").focus();
+					return false;
+				}
 			}
 			if(isNaN($("#tel2").val())){
 				alert("전화번호 중간자리는 숫자만 입력하세요.");
 				$("#tel2").val("").focus();
 				return false;
+			}
+			if($("#tel3").val() != ""){
+				if($("#tel3").val().length < 4){
+					alert("전화번호 끝자리는 4자리를 입력하세요.");
+					$("#tel3").val("").focus();
+					return false;
+				}
 			}
 			if(isNaN($("#tel3").val())){
 				alert("전화번호 끝자리는 숫자만 입력하세요.");
@@ -198,6 +208,23 @@
 				return false;
 			}
 			
+			
+			if($("#tel2").val().length >= 3){
+				if($("#tel3").val().length < 4){
+					alert("전화번호 끝자리는 4자리를 입력하세요.");
+					$("#tel3").val("").focus();
+					return false;
+				}
+			}
+			if($("#tel3").val().length == 4){
+				if($("#tel2").val().length < 3){
+					alert("전화번호 중간자리는 3자리 이상을 입력하세요.");
+					$("#tel2").val("").focus();
+					return false;
+				}
+			}
+			
+		
 			if($("#phone1").val()==""){
 				alert("핸드폰 앞자리를 선택 하세요.");
 				return false;
