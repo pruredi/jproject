@@ -11,9 +11,9 @@ public class MemberServiceImpl {
 	@Autowired
 	private MemberDAOImpl memberDao;
 	
-	public int checkMemberId(String join_id) throws Exception{
+	public int checkMemberId(String id) throws Exception{
 		System.out.println("service - checkMemberId");
-		return memberDao.checkMemberId(join_id);
+		return memberDao.checkMemberId(id);
 	}
 	
 	public MemberBean findpwd(MemberBean member)throws Exception {
@@ -26,9 +26,9 @@ public class MemberServiceImpl {
 		memberDao.insertMember(member);
 	}
 	
-	public MemberBean userCheck(String join_id) throws Exception{
+	public MemberBean userCheck(String id) throws Exception{
 		System.out.println("service - userCheck");
-		return memberDao.userCheck(join_id);		
+		return memberDao.userCheck(id);		
 	}
 	
 	public void updateMember(MemberBean member) throws Exception{

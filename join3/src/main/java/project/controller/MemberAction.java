@@ -303,9 +303,9 @@ public class MemberAction {
 	public String member_del(HttpSession session, Model dm) throws Exception {
 		System.out.println("/member_del.do");
 		
-		String join_id = (String) session.getAttribute("join_id");
-		MemberBean deleteM = memberService.userCheck(join_id);
-		dm.addAttribute("d_id", join_id);
+		String id = (String) session.getAttribute("id");
+		MemberBean deleteM = memberService.userCheck(id);
+		dm.addAttribute("d_id", id);
 		dm.addAttribute("d_name", deleteM.getJoin_name());
 		
 		return "member/member_del";

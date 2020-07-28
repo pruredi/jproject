@@ -19,9 +19,9 @@ public class MemberDAOImpl {
 	}
 
 	/* 아이디 중복 체크 */
-	public int checkMemberId(String join_id) throws Exception {
+	public int checkMemberId(String id) throws Exception {
 		int re = -1;	// 사용 가능한 ID
-		MemberBean mb = (MemberBean) sqlSession.selectOne("login_check", join_id);
+		MemberBean mb = (MemberBean) sqlSession.selectOne("login_check", id);
 		if (mb != null)
 			re = 1; 	// 중복id
 		return re;
@@ -33,18 +33,20 @@ public class MemberDAOImpl {
 	}
 
 	/* 로그인 인증 체크 */
-	public MemberBean userCheck(String join_id) throws Exception {
+	public MemberBean userCheck(String id) throws Exception {
 		System.out.println("dao - userCheck");
-		return (MemberBean) sqlSession.selectOne("login_check", join_id);
+		return (MemberBean) sqlSession.selectOne("login_check", id);
 	}
 
 	/* 회원수정 */
 	public void updateMember(MemberBean member) throws Exception {
+		System.out.println("dao - updateMember");
 		sqlSession.update("member_edit", member);
 	}
 
 	/* 회원삭제 */
 	public void deleteMember(MemberBean delm) throws Exception {
+		System.out.println("dao - deleteMember");
 		sqlSession.update("member_delete", delm);
 	}
 }
