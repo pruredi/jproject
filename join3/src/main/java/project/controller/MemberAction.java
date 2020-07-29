@@ -167,7 +167,7 @@ public class MemberAction {
 		System.out.println("/member_login_ok.do");
 		int result=0;		
 		MemberBean mb = memberService.userCheck(id);
-
+		
 		if (mb == null) {	// 등록되지 않은 회원일때
 			
 			result = 1;
@@ -193,6 +193,8 @@ public class MemberAction {
 				return "member/loginResult";				
 			}
 		}
+		// 탈퇴한 회원 일때
+		// 추가예정
 
 	}
 
@@ -313,15 +315,14 @@ public class MemberAction {
 
 	/* 회원정보 삭제 완료 */
 	@RequestMapping(value = "/member_del_ok.do", method = RequestMethod.POST)
-	public String member_del_ok(@RequestParam("pwd") String pass, 
-							    @RequestParam("join_delcont") String join_delcont,
+	public String member_del_ok(@RequestParam("passwd1") String passwd1, 
 							    HttpSession session) throws Exception {
 		System.out.println("/member_del_ok.do");
 		
 		String id = (String) session.getAttribute("id");
 		MemberBean member = this.memberService.userCheck(id);
 
-		if (!member.getPasswd1().equals(pass)) {
+		if (!member.getPasswd1().equals(passwd1)) {
 
 			return "member/deleteResult";
 			
@@ -330,7 +331,6 @@ public class MemberAction {
 			
 			MemberBean delm = new MemberBean();
 			delm.setJoin_id(id);
-			delm.setJoin_delcont(join_delcont);
 
 			memberService.deleteMember(delm);// 삭제 메서드 호출
 
