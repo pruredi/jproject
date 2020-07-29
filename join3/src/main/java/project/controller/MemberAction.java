@@ -57,7 +57,6 @@ public class MemberAction {
 	public String member_join() {
 		System.out.print("member_join.do");
 		return "member/member_join";
-		// member 폴더의 member_join.jsp 뷰 페이지 실행
 	}
 
 
@@ -257,43 +256,43 @@ public class MemberAction {
 	
 	/* 회원정보 수정 */
 	@RequestMapping(value = "/member_edit_ok.do", method = RequestMethod.POST)
-	public String member_edit_ok(@RequestParam("join_profile1") MultipartFile mf, 
-								 MemberBean member,
+	public String member_edit_ok(MemberBean member,
 								 HttpServletRequest request, 
 								 HttpSession session, 
-								 Model model) throws Exception {
+								 Model model
+								 ) throws Exception {
 		System.out.println("/member_edit_ok.do");
 		
 		String id = (String) session.getAttribute("id");
 
 		
-		String join_tel1 = request.getParameter("join_tel1").trim();
-		String join_tel2 = request.getParameter("join_tel2").trim();
-		String join_tel3 = request.getParameter("join_tel3").trim();
-		String join_tel = join_tel1 + "-" + join_tel2 + "-" + join_tel3;
+		String tel1 = request.getParameter("tel1").trim();
+		String tel2 = request.getParameter("tel2").trim();
+		String tel3 = request.getParameter("tel3").trim();
+		String tel = tel1 + "-" + tel2 + "-" + tel3;
 		
-		String join_phone1 = request.getParameter("join_phone1").trim();
-		String join_phone2 = request.getParameter("join_phone2").trim();
-		String join_phone3 = request.getParameter("join_phone3").trim();
-		String join_phone = join_phone1 + "-" + join_phone2 + "-" + join_phone3;
+		String phone1 = request.getParameter("phone1").trim();
+		String phone2 = request.getParameter("phone2").trim();
+		String phone3 = request.getParameter("phone3").trim();
+		String phone = phone1 + "-" + phone2 + "-" + phone3;
 		
-		String join_mailid = request.getParameter("join_mailid").trim();
-		String join_maildomain = request.getParameter("join_maildomain").trim();
-		String join_email = join_mailid + "@" + join_maildomain;
-		// 전화번호/핸드폰/메일주소를 결합하는 작업
-		
+		String emailid = request.getParameter("emailid").trim();
+		String emaildomain = request.getParameter("emaildomain").trim();
+		String email = emailid + "@" + emaildomain;
 		
 		MemberBean editm = this.memberService.userCheck(id);		
 		
 		member.setJoin_id(id);
-		member.setTel(join_tel);
-		member.setPhone(join_phone);
-		member.setEmail(join_email);
-
+		member.setTel(tel);
+		member.setPhone(phone);
+		member.setEmail(email);
+		
+		
 		memberService.updateMember(member);// 수정 메서드 호출
-
+		
 		model.addAttribute("join_name", member.getJoin_name());
-
+		
+		System.out.println("/member_edit_ok.do - e");
 		return "member/main";
 	}
 

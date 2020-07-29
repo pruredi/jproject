@@ -7,10 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <title>회원정보 수정</title>
-<link rel="stylesheet" type="text/css" href="./css/admin.css" />
-<link rel="stylesheet" type="text/css" href="./css/member.css" />
-<script src="./js/jquery.js"></script>
-<script src="./js/member.js"></script>
+
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
 //우편번호, 주소 Daum API
@@ -23,12 +21,15 @@ function openDaumPostcode() {
 	}).open();
 }
 </script>
+
+<script src="<%=request.getContextPath() %>/js/member.js"></script>
+
 </head>
 <body>
   <div id="join_wrap">
   <h2 class="join_title">회원수정</h2>
   <form name="f" method="post" action="member_edit_ok.do"
-  		onsubmit="return edit_check()" enctype="multipart/form-data">
+  		onsubmit="return edit_check()">
    <!-- 이진파일을 업로드 할려면 enctype 속성을 지정 -->
    <table id="join_t">
     <tr>

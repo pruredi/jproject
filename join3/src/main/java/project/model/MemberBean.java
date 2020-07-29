@@ -16,10 +16,8 @@ public class MemberBean {
 	private String phone;			/* 휴대전화번호 */
 	private String email;			/* 이메일 */
 	private String join_joindate;		/* 가입 날짜 */
-	private String join_deldate;		/* 가입 날짜 */
+	private String join_deldate;		/* 탈퇴 날짜 */
 	private String join_delcont;	/* 탈퇴회원여부 */
-	
-	
 	
 	
 	public int getCode() {

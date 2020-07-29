@@ -22,8 +22,7 @@
 <body>
  <div id="del_wrap">
   <h2 class="del_title">회원탈퇴</h2>
-  <form method="post" action="member_del_ok.do" 
-  					  onsubmit="return check()">
+  <form method="post" action="member_del_ok.do" onsubmit="return check()">
     <table id="del_t">
      <tr>
       <th>회원아이디</th>

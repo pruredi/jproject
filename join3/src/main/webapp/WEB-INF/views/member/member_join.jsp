@@ -22,7 +22,6 @@ function openDaumPostcode() {
 }
 </script>
 
-
 <script src="<%=request.getContextPath() %>/js/member.js"></script>
 
 </head>
