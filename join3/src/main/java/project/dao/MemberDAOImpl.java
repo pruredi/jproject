@@ -56,6 +56,12 @@ public class MemberDAOImpl {
 		sqlSession.update("pwd_edit", member);
 	}
 	
+	/* 임시비밀번호생성 */
+	public void tem_pwd(MemberBean member) throws Exception {
+		System.out.println("dao - tem_pwd");
+		sqlSession.update("tem_pwd", member);
+	}
+	
 }
 
 

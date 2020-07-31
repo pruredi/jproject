@@ -46,4 +46,9 @@ public class MemberServiceImpl {
 		memberDao.pwdupdateMember(member);
 	}
 	
+	public void tem_pwd(MemberBean member) throws Exception{
+		System.out.println("service - tem_pwd");
+		memberDao.pwdupdateMember(member);
+	}
+	
 }

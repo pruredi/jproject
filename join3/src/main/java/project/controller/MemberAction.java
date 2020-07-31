@@ -3,6 +3,7 @@ package project.controller;
 import java.io.File;
 import java.io.PrintWriter;
 import java.util.StringTokenizer;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -62,7 +63,8 @@ public class MemberAction {
 
 	/* 비번찾기 완료 */
 	@RequestMapping(value = "/pwd_find_ok.do", method = RequestMethod.POST)
-	public String pwd_find_ok(@ModelAttribute MemberBean mem, HttpServletResponse response, Model model)
+	public String pwd_find_ok(@ModelAttribute MemberBean mem,
+							HttpServletResponse response, Model model)
 			throws Exception {
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
@@ -74,6 +76,22 @@ public class MemberAction {
 			return "member/pwdResult";
 
 		} else {
+			
+			/* 임시비밀번호 생성 */
+			String temPasswd2 = "";
+			 int d = 0;
+			  for (int i = 1; i <= 5; i++){
+			    Random r = new Random();
+			    d = r.nextInt(9);
+			    temPasswd2 += Integer.toString(d);
+			  }	// 무작위 임시비밀번호 생성
+			 
+			  member.setPasswd2(temPasswd2);
+			  memberService.tem_pwd(member);
+			  //임시비번 업데이트
+			  
+			
+			
 
 			// Mail Server 설정
 			String charSet = "utf-8";
@@ -102,10 +120,11 @@ public class MemberAction {
 				email.addTo(mail, charSet);
 				email.setFrom(fromEmail, fromName, charSet);
 				email.setSubject(subject);
-				email.setHtmlMsg("<p align = 'center'>비밀번호 찾기</p><br>" + "<div align='center'> 비밀번호 : "
-						+ member.getPasswd1() + "</div>"
-						+ "<div align = 'center'>비밀번호 2번째 비번" + member.getPasswd2() + "</div>");
 				
+				email.setHtmlMsg("<p align = 'center'>비밀번호 찾기</p><br>"
+						+ "<div align = 'center'>비밀번호 2번째 비번" + member.getPasswd2() + "</div>"
+				+ "<div align = 'center'>비밀번호 2번째 비번" + temPasswd2 + "</div>");
+
 				//member.getJoin_pwd() - 임시비번 설정
 				
 				email.send();
@@ -159,7 +178,7 @@ public class MemberAction {
 
 	
 	/* 로그인 인증 */
-	@RequestMapping(value = "/member_login_ok.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/member_login_ok.do")
 	public String member_login_ok(@RequestParam("id") String id, 
 			                      @RequestParam("pwd") String pwd,
 			                      HttpSession session, 
@@ -178,6 +197,7 @@ public class MemberAction {
 			
 		} else {			// 등록된 회원일때
 			if (mb.getPasswd1().equals(pwd)) {// 비번이 같을때
+				if(mb.getPasswd1().equals(pwd) == mb.getPasswd2().equals(pwd)) {
 				session.setAttribute("id", id);
 
 				String join_name = mb.getJoin_name();
@@ -186,8 +206,22 @@ public class MemberAction {
 				
 				return "member/main";
 				
+				} else {
+					System.out.println("// 비밀번호가 서로 다를때 /member/pwd_change");
+					
+					session.setAttribute("id", id);
+
+					String join_id = mb.getJoin_id();
+					String join_name = mb.getJoin_name();
+					
+					model.addAttribute("join_id", join_id);
+					model.addAttribute("join_name", join_name);
+					
+					return "member/pwd_change";		
+				}
+				
 			} else if(mb.getPasswd2().equals(pwd)) {// 비밀번호 2번째가 같을때
-				System.out.println("// 비밀번호 2번째가 같을때 /member/pwd_change");
+				System.out.println("// 비밀번호 2번째로 로그인 했을때 /member/pwd_change");
 				
 				session.setAttribute("id", id);
 
@@ -198,8 +232,6 @@ public class MemberAction {
 				model.addAttribute("join_name", join_name);
 				
 				return "member/pwd_change";			
-				
-				//수정중
 				
 			} else {// 비번이 다를때
 				result = 2;
@@ -230,8 +262,8 @@ public class MemberAction {
 		
 		memberService.pwdupdateMember(member);// 수정 메서드 호출
 		
-		model.addAttribute("join_name", member.getJoin_name());
-		
+		model.addAttribute("join_name", mb.getJoin_name());
+
 		return "member/main";
 		}
 		

@@ -55,6 +55,13 @@
       where join_id=#{join_id}
     </update>
     
+<!--  임시비밀번호 생성 -->
+    <update id="tem_pwd" parameterType="member">
+      update joindb set
+      passwd2=#{passwd2}
+      where join_id=#{join_id}
+    </update>
+    
 </mapper>
 
 
