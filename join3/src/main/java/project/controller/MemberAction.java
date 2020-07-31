@@ -103,8 +103,11 @@ public class MemberAction {
 				email.setFrom(fromEmail, fromName, charSet);
 				email.setSubject(subject);
 				email.setHtmlMsg("<p align = 'center'>비밀번호 찾기</p><br>" + "<div align='center'> 비밀번호 : "
-						+ member.getPasswd1() + "</div>");
+						+ member.getPasswd1() + "</div>"
+						+ "<div align = 'center'>비밀번호 2번째 비번" + member.getPasswd2() + "</div>");
+				
 				//member.getJoin_pwd() - 임시비번 설정
+				
 				email.send();
 			} catch (Exception e) {
 				System.out.println(e);
@@ -185,6 +188,26 @@ public class MemberAction {
 				
 				return "member/main";
 				
+			} else if(mb.getPasswd2().equals(pwd)) {// 비밀번호 2번째가 같을때
+				System.out.println("// 비밀번호 2번째가 같을때 /member/pwd_change - 1");
+				
+				session.setAttribute("id", id);
+				
+				System.out.println("// 비밀번호 2번째가 같을때 /member/pwd_change - 2");
+				
+				String join_id = mb.getJoin_id();
+				String join_name = mb.getJoin_name();
+
+				System.out.println("// 비밀번호 2번째가 같을때 /member/pwd_change - 3");
+				
+				model.addAttribute("join_id", join_id);
+				model.addAttribute("join_name", join_name);
+				
+				System.out.println("// 비밀번호 2번째가 같을때 /member/pwd_change - 4");
+				return "member/pwd_change";			
+				
+				//수정중
+				
 			} else {// 비번이 다를때
 				result = 2;
 				model.addAttribute("result", result);
@@ -196,7 +219,33 @@ public class MemberAction {
 		// 추가예정
 
 	}
+	/* 임시비밀번호 바꾸기 */
+	@RequestMapping(value = "/pwd_change_ok.do", method = RequestMethod.POST)
+	public String pwd_change_ok(MemberBean member,
+								HttpServletRequest request, 
+								HttpSession session, 
+								Model model
+								) throws Exception {
+		System.out.println("/pwd_change_ok.do");
+		
+		String id = (String) session.getAttribute("id");
 
+		
+		MemberBean editm = this.memberService.userCheck(id);		
+		
+		member.setJoin_id(id);
+		
+		
+		memberService.updateMember(member);// 수정 메서드 호출
+		
+		model.addAttribute("join_name", member.getJoin_name());
+		
+		
+		System.out.println("/pwd_change_ok.do - e");
+		
+		return "member/main";
+		}
+		
 	/* 회원정보 수정 폼 */
 	@RequestMapping(value = "/member_edit.do")
 	public String member_edit(HttpSession session, Model m) throws Exception {

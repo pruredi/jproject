@@ -7,9 +7,9 @@
 <head>
 <meta charset="UTF-8">
 <title>사용자 메인화면</title>
-<link rel="stylesheet" type="text/css" href="./css/main.css" />
-<link rel="stylesheet" type="text/css" href="./css/admin.css" />
 </head>
+
+
 <body>
 
 <c:if test="${sessionScope.id == null }"> 

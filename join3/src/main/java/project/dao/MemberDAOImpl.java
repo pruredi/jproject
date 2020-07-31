@@ -43,12 +43,19 @@ public class MemberDAOImpl {
 		System.out.println("dao - updateMember");
 		sqlSession.update("member_edit", member);
 	}
-
+	
 	/* 회원삭제 */
 	public void deleteMember(MemberBean delm) throws Exception {
 		System.out.println("dao - deleteMember");
 		sqlSession.update("member_delete", delm);
 	}
+	
+	/* 임시비밀번호수정 */
+	public void pwdupdateMember(MemberBean member) throws Exception {
+		System.out.println("dao - pwdupdateMember");
+		sqlSession.update("pwd_edit", member);
+	}
+	
 }
 
 

@@ -166,7 +166,7 @@ function openDaumPostcode() {
    <div id="join_menu">
     <input type="submit" value="회원수정" class="input_button" />
     <input type="reset" value="수정취소" class="input_button" 
-    onclick="$('#join_pwd1').focus();" />
+    onclick="$('#passwd1').focus();" />
    </div>
   </form>
  </div>

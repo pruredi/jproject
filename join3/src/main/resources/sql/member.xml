@@ -47,6 +47,14 @@
       where join_id=#{join_id}
     </update>
 
+<!--  임시비밀번호 변경 -->
+    <update id="pwd_edit" parameterType="member">
+      update joindb set
+      passwd1=#{passwd2},
+      passwd2=#{passwd2}
+      where join_id=#{join_id}
+    </update>
+    
 </mapper>
 
 

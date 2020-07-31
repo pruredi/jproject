@@ -25,6 +25,21 @@ create sequence join_code_seq
 increment by 1 start with 1 nocache;
 
 
+insert into joindb (
+	code,
+	join_id,passwd1,passwd2,
+	join_name,join_date,join_num,
+	addr_num,addr1,addr2,
+	tel,phone,email,
+	join_joindate,join_deldate,join_delcont)
+values(join_code_seq .nextval,
+	'33333','33333','22222',
+	'33333','123456','1234567',
+	'18577','경기 화성시 팔탄면 3.1만세로771번길 8','7777',
+	'02-7777-7777','010-7777-7777','7777@naver.com',
+	sysdate,sysdate,1);
+
+
 -- joindb.sql
 select * from tab;
 select * from seq;

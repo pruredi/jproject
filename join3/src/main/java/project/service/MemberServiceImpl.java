@@ -40,4 +40,10 @@ public class MemberServiceImpl {
 		System.out.println("service - updateMember");
 		memberDao.deleteMember(member);
 	}
+	
+	public void pwdupdateMember(MemberBean member) throws Exception{
+		System.out.println("service - pwdupdateMember");
+		memberDao.pwdupdateMember(member);
+	}
+	
 }
