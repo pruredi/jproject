@@ -24,6 +24,12 @@
    <h2 class="main_title">사용자 메인화면</h2>  
    <form method="post" action="member_logout.do"> 
    <table id="main_t">
+       
+    <tr>
+     <th>회원명</th>
+     <td>${join_name}님 로그인을 환영합니다</td>
+    </tr>
+    
     <tr>
      <th colspan="2">
      <input type="button" value="정보수정" class="input_button"
@@ -34,12 +40,6 @@
      <input type="submit" value="로그아웃" class="input_button" />     
      </th>
     </tr>
-    
-    <tr>
-     <th>회원이름</th>
-     <td>${join_name}님 로그인을 환영합니다</td>
-    </tr>
-    
     
    </table>   
    </form>

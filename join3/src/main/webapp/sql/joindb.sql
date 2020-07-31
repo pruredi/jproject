@@ -39,6 +39,9 @@ values(join_code_seq .nextval,
 	'02-7777-7777','010-7777-7777','7777@naver.com',
 	sysdate,sysdate,1);
 
+update joindb set
+      passwd2='22222'
+      where join_id='33333';
 
 -- joindb.sql
 select * from tab;

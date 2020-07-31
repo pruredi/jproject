@@ -33,7 +33,8 @@
 <c:if test="${sessionScope.id != null }">  
  <div id="pwd_change_wrap">
   <h2 class="pwd_change_title">비밀번호 수정</h2>
-   <form method="post" action="pwd_change.do"> 
+   <form method="post" action="pwd_change_ok.do"> 
+   	<input type="hidden" name="join_id" value="${join_id}">
     <table id="pwd_change_t">
      <tr>
      <th colspan="2">${join_name}님 로그인을 환영합니다</th>
@@ -44,7 +45,7 @@
      <tr>
       <th>회원아이디</th>
       <td>
-      ${join_name}
+      ${join_id}
       </td>
      </tr>
      
@@ -52,25 +53,26 @@
      <tr>
       <th>비밀번호</th>
       <td>
-      <input type="password" name="passwd2" id="passwd2" size="14" 
-      			class="input_box" />
+      <input type="password" name="passwd2" id="passwd2" size="14"
+      class="input_box" />
       </td>
      </tr>
 
     </table>
-   </form>
- </div>
-</c:if>
-
-    <div id="del_menu">
-     <input type="submit" value="수정" class="input_button" 
-     onclick="location='pwd_change_ok.do'"/>
+    
+    <div id="pwd_edit_menu">
+     <input type="submit" value="수정" class="input_button" />
      <input type="reset" value="취소" class="input_button"
      onclick="$('#passwd2').focus();" />
      <input type="reset" value="로그아웃" class="input_button"
      onclick="location='member_logout.do'" />
     </div>
-  </form>
+    
+   </form>
  </div>
+</c:if>
+
+
+
 </body>
 </html>

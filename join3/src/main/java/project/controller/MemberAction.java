@@ -153,8 +153,6 @@ public class MemberAction {
 		
 		memberService.insertMember(member);
 		
-		System.out.println("member_join_ok.do - E");
-		
 		return "redirect:member_login.do";
 	}
 
@@ -183,27 +181,22 @@ public class MemberAction {
 				session.setAttribute("id", id);
 
 				String join_name = mb.getJoin_name();
-
+				
 				model.addAttribute("join_name", join_name);
 				
 				return "member/main";
 				
 			} else if(mb.getPasswd2().equals(pwd)) {// 비밀번호 2번째가 같을때
-				System.out.println("// 비밀번호 2번째가 같을때 /member/pwd_change - 1");
+				System.out.println("// 비밀번호 2번째가 같을때 /member/pwd_change");
 				
 				session.setAttribute("id", id);
-				
-				System.out.println("// 비밀번호 2번째가 같을때 /member/pwd_change - 2");
-				
+
 				String join_id = mb.getJoin_id();
 				String join_name = mb.getJoin_name();
-
-				System.out.println("// 비밀번호 2번째가 같을때 /member/pwd_change - 3");
 				
 				model.addAttribute("join_id", join_id);
 				model.addAttribute("join_name", join_name);
 				
-				System.out.println("// 비밀번호 2번째가 같을때 /member/pwd_change - 4");
 				return "member/pwd_change";			
 				
 				//수정중
@@ -219,8 +212,9 @@ public class MemberAction {
 		// 추가예정
 
 	}
+	
 	/* 임시비밀번호 바꾸기 */
-	@RequestMapping(value = "/pwd_change_ok.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/pwd_change_ok.do")
 	public String pwd_change_ok(MemberBean member,
 								HttpServletRequest request, 
 								HttpSession session, 
@@ -229,25 +223,21 @@ public class MemberAction {
 		System.out.println("/pwd_change_ok.do");
 		
 		String id = (String) session.getAttribute("id");
-
 		
-		MemberBean editm = this.memberService.userCheck(id);		
+		MemberBean mb = this.memberService.userCheck(id);		
 		
 		member.setJoin_id(id);
 		
-		
-		memberService.updateMember(member);// 수정 메서드 호출
+		memberService.pwdupdateMember(member);// 수정 메서드 호출
 		
 		model.addAttribute("join_name", member.getJoin_name());
-		
-		
-		System.out.println("/pwd_change_ok.do - e");
 		
 		return "member/main";
 		}
 		
+	
 	/* 회원정보 수정 폼 */
-	@RequestMapping(value = "/member_edit.do")
+	@RequestMapping(value = "/member_edit.do", method = RequestMethod.POST)
 	public String member_edit(HttpSession session, Model m) throws Exception {
 		System.out.println("/member_edit.do");
 		
@@ -296,7 +286,6 @@ public class MemberAction {
 		m.addAttribute("emaildomain", emaildomain);
 		// 따로 따로 해 놓아야 view 페이지에서 출력이 가능하다.
 		
-		System.out.println("/member_edit.do - e");
 		return "member/member_edit";
 	}
 
@@ -341,7 +330,6 @@ public class MemberAction {
 		
 		model.addAttribute("join_name", member.getJoin_name());
 		
-		System.out.println("/member_edit_ok.do - e");
 		return "member/main";
 	}
 
