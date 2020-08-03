@@ -31,9 +31,9 @@ public class MemberAction {
 
 	// ID중복검사 ajax함수로 처리부분
 	@RequestMapping(value = "/member_idcheck.do", method = RequestMethod.POST)
-	public String member_idcheck(@RequestParam("memid") String id, Model model) throws Exception {
-
-		int result = memberService.checkMemberId(id);
+	public String member_idcheck(String join_id, Model model) throws Exception {
+		System.out.println("join_id:"+join_id);
+		int result = memberService.checkMemberId(join_id);
 		model.addAttribute("result", result);
 
 		return "member/idcheckResult";

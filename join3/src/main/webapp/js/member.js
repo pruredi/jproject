@@ -1,87 +1,66 @@
-﻿$(document).ready(function(){
-		
-		// ID중복검사
-		$("#idcheck").click(function(){
-			if($("#id").val()==""){
-				alert("ID를 입력하세요.");
-				$("#id").focus();
-				return false;
-			}else{
-				// open("팝업창에 실행될 문서명","윈도우이름","옵션")
-				var ref="idcheck.jsp?id="+$("#id").val();
-				window.open(ref,"mywin","width=250,height=150");
-			}			
-		});
-//	
-//		// ajax로 ID중복 검사
-//		$("#idcheck").click(function(){	
-//			if($("#id").val()==""){
-//				alert("ID를 입력하세요.");
-//				$("#id").focus();
-//				return false;
-//			}else{
-//				
-//				var id = $("#id").val();
-//				
-//				$.ajax({
-//					type : "POST",
-//					url : "idcheck1.jsp",
-//					data : {"id": id},
-//					success : function(data){
-////						alert(data);
-//						if(data == 1){	// 중복 ID
-//							$("#myid").text("중복 ID입니다.");
-//							$("#id").val("").focus();
-//						}else{			// 사용 가능한 ID
-//							$("#myid").text("사용 가능한 ID입니다.");
-//							$("#passwd").focus();
-//						}
-//						
-//					}					
-//				}); // end ajax				
-//			}			
-//		});
-	
-	
-	// keyup 이벤트로 ID중복 검사
-	/*$("#id").keyup(function(){	
-		if($("#id").val()==""){
-			alert("ID를 입력하세요.");
-			$("#id").focus();
-			return false;
-		}else{
-			
-			var id = $("#id").val();
-			
-			$.ajax({
-				type : "POST",
-				url : "idcheck1.jsp",
-				data : {"id": id},
-				success : function(data){
-//					alert(data);
-					if(data == 1){	// 중복 ID
-						$("#myid").text("중복 ID입니다.");
-//						$("#id").val("").focus();
-					}else{			// 사용 가능한 ID
-						$("#myid").text("사용 가능한 ID입니다.");
-//						$("#passwd").focus();
-					}
-					
-				}					
-			}); // end ajax				
-		}			
-	});*/
-	
-	
-	
-		
+﻿function id_check() {
+	var join_id = $("#join_id").val()
+	if($("#join_id").val()==""){
+		var newtext='<font color="red">ID를 입력하세요.</font>';
+		$("#idcheck").text('');
+		$("#idcheck").show();
+		$("#idcheck").append(newtext);//아이디 영역에 경고문자 추가
+		$("#join_id").val("").focus();
+		return false;
+	} else if($.trim($("#join_id").val()).length < 4){
+		var newtext='<font color="red">아이디는 4자 이상이어야 합니다.</font>';
+		$("#idcheck").text('');
+		$("#idcheck").show();
+		$("#idcheck").append(newtext);//아이디 영역에 경고문자 추가
+		$("#join_id").val("").focus();
+		return false;
+	} else if($.trim($("#join_id").val()).length >12){
+		var newtext='<font color="red">아이디는 12자 이하이어야 합니다.</font>';
+		$("#idcheck").text('');
+		$("#idcheck").show();
+		$("#idcheck").append(newtext);//아이디 영역에 경고문자 추가
+		$("#join_id").val("").focus();
+		return false;
+	} else {	
+	    $.ajax({
+	        type:"POST",
+	        url:"member_idcheck.do",
+	        data: {"join_id":join_id},        
+	        success: function (data) { 
+	        	//alert("return success="+data);
+	      	  if(data==1){	//중복 ID
+	      		var newtext='<font color="red">중복 아이디입니다.</font>';
+	      			$("#idcheck").text('');
+	        		$("#idcheck").show();
+	        		$("#idcheck").append(newtext);
+	          		$("#join_id").val('').focus();
+	          		return false;
+		     
+	      	  }else{	//사용 가능한 ID
+	      		var newtext='<font color="blue">사용가능한 아이디입니다.</font>';
+	      		$("#idcheck").text('');
+	      		$("#idcheck").show();
+	      		$("#idcheck").append(newtext);
+	      		$("#passwd1").focus();
+	      	  }  	    	  
+	        }
+	        , error:function(e){
+	    		  alert("data error"+e);
+	    	  }
+	      });//$.ajax			
+	};
+}
+
+
+
+$(document).ready(function(){
+
 		// 주민번호  뒷자리로 포커스 이동
 		$("#join_date").keyup(function(){
 			
 			if($("#join_date").val().length == 6)
 				$("#join_num").focus();
 		});
-		
 		
 		
 		// 도메인 선택
@@ -94,9 +73,6 @@
 				$("#emaildomain").attr("readOnly","readOnly");				
 			}
 		});
-		
-		
-		
 		
 		
 		// 유효성 검사
@@ -260,8 +236,6 @@
 				$("#emaildomain").focus();
 				return false;
 			}
-
-			
 
 			
 	});	// submit() end	
