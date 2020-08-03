@@ -89,9 +89,7 @@ public class MemberAction {
 			  member.setPasswd2(temPasswd2);
 			  memberService.tem_pwd(member);
 			  //임시비번 업데이트
-			  
-			
-			
+
 
 			// Mail Server 설정
 			String charSet = "utf-8";
