@@ -267,7 +267,8 @@ public class MemberAction {
 		
 	
 	/* 회원정보 수정 폼 */
-	@RequestMapping(value = "/member_edit.do", method = RequestMethod.POST)
+//	@RequestMapping(value = "/member_edit.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/member_edit.do")
 	public String member_edit(HttpSession session, Model m) throws Exception {
 		System.out.println("/member_edit.do");
 		
