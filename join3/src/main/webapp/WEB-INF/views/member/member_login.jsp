@@ -67,14 +67,14 @@
     <input type="button" value="비번찾기" class="input_button"
     		onclick="pwd_find()" />
     </div>
- 	<table>
-		<a id="kakao-login-btn"></a>
+ 	<div id="kakao-login_menu">
+		<a id="kakao-login-btn" onclick="location='member_login_ok.do'"></a>
 		<a href="http://developers.kakao.com/logout"></a>
 
 <script type='text/javascript'>
 	Kakao.init('54aecdbad390640bb2ddaecda41426d8'); //자바스크립트 키
 			 
-	//카카오 로그인 버튼을 생성합니다. 
+	//카카오 로그인 버튼을 생성
 	Kakao.Auth.createLoginButton({ 
 		container: '#kakao-login-btn', 
 		success: function(authObj) { 
@@ -83,11 +83,10 @@
 				success: function(res) {
 					console.log(res.id);//콘솔 로그에 id 출력(id는 res안에 있기 때문에  res.id 로 불러온다)
 			        console.log(res.kaccount_email);//콘솔 로그에 email 출력
-			        console.log(res.properties['nickname']);//콘솔 로그에 닉네임 출력(properties에 있는 nickname 접근 res.properties.nickname으로도 접근 가능 )
-			        console.log(authObj.access_token);//콘솔 로그에 토큰값 출력
 			        var kakaonickname = res.properties.nickname;  //카카오톡 닉네임을 변수에 저장 (닉네임 값을 다른페이지로 넘겨 출력하기 위해서)
 			        window.location.replace("http://" + window.location.hostname + ( (location.port==""||location.port==undefined)?"":":" + location.port) + "/hansub_project/home?kakaonickname="+kakaonickname);
-			        //로그인 결과 페이지로 닉네임 값을 넘겨서 출력시킨다.,
+			        //로그인 결과 페이지로 닉네임 값을 넘겨서 출력시킨다.
+			        alert('카카로 로그인')
 				}
 			})
 		},
@@ -96,7 +95,8 @@
 		}
 	});
 </script>
-  	</table>
+
+  	</div>
     
   </form>
  </div>
