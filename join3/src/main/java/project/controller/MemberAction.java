@@ -427,6 +427,8 @@ public class MemberAction {
 	
 	
 	
+	//카카오 가입
+	//카카오 로그인
 	
 	@RequestMapping(value = "/oauth", produces = "application/json")
     public String kakaoLogin(@RequestParam("code") String code, Model model, HttpSession session) {
