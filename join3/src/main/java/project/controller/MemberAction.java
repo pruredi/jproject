@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
+import project.kakao.kakao;
 import project.model.MemberBean;
 import project.service.MemberServiceImpl;
 
@@ -418,6 +421,44 @@ public class MemberAction {
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	@RequestMapping(value = "/oauth", produces = "application/json")
+    public String kakaoLogin(@RequestParam("code") String code, Model model, HttpSession session) {
+        System.out.println("로그인 할때 임시 코드값");
+        //카카오 홈페이지에서 받은 결과 코드
+        System.out.println(code);
+        System.out.println("로그인 후 결과값");
+        
+        //카카오 rest api 객체 선언
+        kakao kr = new kakao();
+        //결과값을 node에 담아줌
+        JsonNode node = kr.getAccessToken(code);
+        //결과값 출력
+        System.out.println(node);
+        //노드 안에 있는 access_token값을 꺼내 문자열로 변환
+        String token = node.get("access_token").toString();
+        //세션에 담아준다.
+        session.setAttribute("token", token);
+        
+        return "logininfo";
+    }
+
+	    
+	private kakao kakao = new kakao();    
+	@RequestMapping(value = "/main", produces = "application/json", method = { RequestMethod.GET, RequestMethod.POST })
+	    public String kakaoLogin(@RequestParam("code") String code) {
+	        //System.out.println(access_token);
+	        return "member/main";
+	}
+	    
+
+	
 	//카카오 로그아웃
     @RequestMapping("kakao_logout.do")
     public String kakao_logout(HttpSession session, HttpServletRequest request) {
@@ -425,109 +466,9 @@ public class MemberAction {
         
         session.invalidate(); //세션 초기화
         
-        return "home";
+        return "member/member_logout";
     }
 
 }
 
 
-
-
-// 카카오 로그인 구현
-
-//@Controller
-//class KakaoController {
-//
-//  private final static String K_CLIENT_ID = "나의 앱 키 입력";
-//  private final static String K_REDIRECT_URI = "리다이렉트 주소입력";
-//
-//  public String getAuthorizationUrl(HttpSession session) {
-//
-//    String kakaoUrl = "https://kauth.kakao.com/oauth/authorize?"
-//        + "client_id=" + K_CLIENT_ID + "&redirect_uri="
-//        + K_REDIRECT_URI + "&response_type=code";
-//    return kakaoUrl;
-//  }
-//
-//  public String getAccessToken(String autorize_code) {
-//
-//    final String RequestUrl = "https://kauth.kakao.com/oauth/token";
-//    final List<NameValuePair> postParams = new ArrayList<NameValuePair>();
-//    postParams.add(new BasicNameValuePair("grant_type", "authorization_code"));
-//    postParams.add(new BasicNameValuePair("client_id", K_CLIENT_ID)); // REST API KEY
-//    postParams.add(new BasicNameValuePair("redirect_uri", K_REDIRECT_URI)); // 리다이렉트 URI
-//    postParams.add(new BasicNameValuePair("code", autorize_code)); // 로그인 과정 중 얻은 code 값
-//
-//    final HttpClient client = HttpClientBuilder.create().build();
-//    final HttpPost post = new HttpPost(RequestUrl);
-//    JsonNode returnNode = null;
-//
-//    try {
-//
-//      post.setEntity(new UrlEncodedFormEntity(postParams));
-//      final HttpResponse response = client.execute(post);
-//      final int responseCode = response.getStatusLine().getStatusCode();
-//
-//      // JSON 형태 반환값 처리
-//
-//      ObjectMapper mapper = new ObjectMapper();
-//      returnNode = mapper.readTree(response.getEntity().getContent());
-//
-//    } catch (UnsupportedEncodingException e) {
-//
-//      e.printStackTrace();
-//
-//    } catch (ClientProtocolException e) {
-//
-//      e.printStackTrace();
-//
-//    } catch (IOException e) {
-//
-//      e.printStackTrace();
-//
-//    } finally {
-//      // clear resources
-//    }
-//    return returnNode.get("access_token").toString();
-//  }
-//
-//  public JsonNode getKakaoUserInfo(String autorize_code) {
-//
-//    final String RequestUrl = "https://kapi.kakao.com/v1/user/me";
-//    //String CLIENT_ID = K_CLIENT_ID; // REST API KEY
-//    //String REDIRECT_URI = K_REDIRECT_URI; // 리다이렉트 URI
-//    //String code = autorize_code; // 로그인 과정중 얻은 토큰 값
-//    final HttpClient client = HttpClientBuilder.create().build();
-//    final HttpPost post = new HttpPost(RequestUrl);
-//    String accessToken = getAccessToken(autorize_code);
-//    // add header
-//    post.addHeader("Authorization", "Bearer " + accessToken);
-//
-//    JsonNode returnNode = null;
-//
-//    try {
-//
-//      final HttpResponse response = client.execute(post);
-//      final int responseCode = response.getStatusLine().getStatusCode();
-//      System.out.println("\nSending 'POST' request to URL : " + RequestUrl);
-//      System.out.println("Response Code : " + responseCode);
-//
-//      // JSON 형태 반환값 처리
-//      ObjectMapper mapper = new ObjectMapper();
-//      returnNode = mapper.readTree(response.getEntity().getContent());
-//    } catch (UnsupportedEncodingException e) {
-//
-//      e.printStackTrace();
-//    } catch (ClientProtocolException e) {
-//
-//      e.printStackTrace();
-//    } catch (IOException e) {
-//
-//      e.printStackTrace();
-//    } finally {
-//
-//      // clear resources
-//    }
-//    return returnNode;
-//  }
-//}
