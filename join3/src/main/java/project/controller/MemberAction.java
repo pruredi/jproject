@@ -429,36 +429,57 @@ public class MemberAction {
 	
 	//카카오 가입
 	//카카오 로그인
-	
-	@RequestMapping(value = "/oauth", produces = "application/json")
-    public String kakaoLogin(@RequestParam("code") String code, Model model, HttpSession session) {
-        System.out.println("로그인 할때 임시 코드값");
+	//컨트롤을 세션에 저장하기
+	//@RequestMapping(value = "/kakao_login_ok.do", produces = "application/json")
+	@RequestMapping(value = "/kakao_login_ok.do", produces = "application/json")
+    public String kakaoLogin(
+    		@RequestParam("code") String code, 	
+    		Model model, HttpSession session) {
+		System.out.println("/kakao_login_ok.do");
+		
         //카카오 홈페이지에서 받은 결과 코드
-        System.out.println(code);
-        System.out.println("로그인 후 결과값");
+        System.out.println("code - " + code);
         
         //카카오 rest api 객체 선언
         kakao kr = new kakao();
+        System.out.println("kr - " + kr);
+        
         //결과값을 node에 담아줌
         JsonNode node = kr.getAccessToken(code);
-        //결과값 출력
-        System.out.println(node);
-        //노드 안에 있는 access_token값을 꺼내 문자열로 변환
-        String token = node.get("access_token").toString();
-        //세션에 담아준다.
-        session.setAttribute("token", token);
+        System.out.println("node - " + node);
         
-        return "logininfo";
+        //노드 안에 있는 access_token값을 꺼내 문자열로 변환
+        // String token = node.get("access_token").toString();
+        // System.out.println(token);
+        //세션에 담아준다.
+        // session.setAttribute("id", token);
+        
+
+        JsonNode userInfo = kr.getKakaoUserInfo(code);
+
+        System.out.println("userInfo - " + userInfo);
+
+        String id = userInfo.get("id").toString();
+        System.out.println("id - " + id);
+        String email = userInfo.get("kaccount_email").toString();
+        System.out.println("email - " + email);
+        String nickname = userInfo.get("properties").get("nickname").toString();
+        System.out.println("nickname - " + nickname);
+
+
+
+        model.addAttribute("k_userInfo", userInfo);
+        model.addAttribute("id", id);
+        model.addAttribute("email", email);
+        model.addAttribute("nickname", nickname);
+        
+
+        return "member/main";
     }
 
+
 	    
-	private kakao kakao = new kakao();    
-	@RequestMapping(value = "/main", produces = "application/json", method = { RequestMethod.GET, RequestMethod.POST })
-	    public String kakaoLogin(@RequestParam("code") String code) {
-	        //System.out.println(access_token);
-	        return "member/main";
-	}
-	    
+
 
 	
 	//카카오 로그아웃

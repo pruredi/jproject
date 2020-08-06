@@ -70,14 +70,14 @@
 
 	<div>
 <!--     <a href = "https://kauth.kakao.com/oauth/authorize?client_id=369b216cafcc89156aa8d4dd04ab8675&redirect_uri=369b216cafcc89156aa8d4dd04ab8675&response_type=code"> -->
-    <a href = "https://kauth.kakao.com/oauth/authorize?client_id=369b216cafcc89156aa8d4dd04ab8675&redirect_uri=http://localhost/join3/member_login_ok.do&response_type=code">
+    <a href = "https://kauth.kakao.com/oauth/authorize?client_id=369b216cafcc89156aa8d4dd04ab8675&redirect_uri=http://localhost/join3/kakao_login_ok.do&response_type=code">
         로그인
     </a>
 	</div>
 
 
  	<div id="kakao-login_menu">
-		<a id="kakao-login-btn" onclick="location='member_login_ok.do'"></a>
+		<a id="kakao-login-btn" onclick="location='kakao_login_ok.do'"></a>
 		<a href="http://developers.kakao.com/logout"></a>
 
 <script type='text/javascript'>
@@ -94,7 +94,7 @@
 			        console.log(res.kaccount_email);//콘솔 로그에 email 출력
 			        var kakaonickname = res.properties.nickname;  //카카오톡 닉네임을 변수에 저장 (닉네임 값을 다른페이지로 넘겨 출력하기 위해서)
 //			        window.location.replace("http://" + window.location.hostname + ( (location.port==""||location.port==undefined)?"":":" + location.port) + "/join3/main?kakaonickname="+kakaonickname);
-			        window.location.replace("http://localhost/join3/member_login_ok.do?kakaonickname="+kakaonickname);
+			        window.location.replace("http://localhost/join3/kakao_login_ok.do?kakaonickname="+kakaonickname);
 			        //로그인 결과 페이지로 닉네임 값을 넘겨서 출력시킨다.
 			        alert('카카오 로그인')
 				}
