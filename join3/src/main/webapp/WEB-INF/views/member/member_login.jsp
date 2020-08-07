@@ -90,11 +90,11 @@
 			Kakao.API.request({
 				url: '/v1/user/me',
 				success: function(res) {
-					console.log(res.id);//콘솔 로그에 id 출력(id는 res안에 있기 때문에  res.id 로 불러온다)
-			        console.log(res.kaccount_email);//콘솔 로그에 email 출력
-			        var kakaonickname = res.properties.nickname;  //카카오톡 닉네임을 변수에 저장 (닉네임 값을 다른페이지로 넘겨 출력하기 위해서)
-//			        window.location.replace("http://" + window.location.hostname + ( (location.port==""||location.port==undefined)?"":":" + location.port) + "/join3/main?kakaonickname="+kakaonickname);
-			        window.location.replace("http://localhost/join3/kakao_login_ok.do?kakaonickname="+kakaonickname);
+					//console.log(res.id);//콘솔 로그에 id 출력(id는 res안에 있기 때문에  res.id 로 불러온다)
+			        //console.log(res.kaccount_email);//콘솔 로그에 email 출력
+			        //var kakaonickname = res.properties.nickname;  //카카오톡 닉네임을 변수에 저장 (닉네임 값을 다른페이지로 넘겨 출력하기 위해서)
+			        // window.location.replace("http://localhost/join3/kakao_login_ok.do?kakaonickname="+kakaonickname);
+			        window.location.replace("http://localhost/join3/kakao_login_ok.do");
 			        //로그인 결과 페이지로 닉네임 값을 넘겨서 출력시킨다.
 			        alert('카카오 로그인')
 				}

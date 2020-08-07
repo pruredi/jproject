@@ -427,7 +427,7 @@ public class MemberAction {
 	
 	
 	
-	//카카오 가입
+
 	//카카오 로그인
 	//컨트롤을 세션에 저장하기
 	//@RequestMapping(value = "/kakao_login_ok.do", produces = "application/json")
@@ -435,44 +435,45 @@ public class MemberAction {
     public String kakaoLogin(
     		@RequestParam("code") String code, 	
     		Model model, HttpSession session) {
-		System.out.println("/kakao_login_ok.do");
 		
+		System.out.println("/kakao_login_ok.do");
         //카카오 홈페이지에서 받은 결과 코드
         System.out.println("code - " + code);
         
         //카카오 rest api 객체 선언
-        kakao kr = new kakao();
-        System.out.println("kr - " + kr);
+//        kakao kr = new kakao();
+//        System.out.println("kr - " + kr);
         
         //결과값을 node에 담아줌
-        JsonNode node = kr.getAccessToken(code);
+        JsonNode node = kakao.getAccessToken(code);
         System.out.println("node - " + node);
         
-        //노드 안에 있는 access_token값을 꺼내 문자열로 변환
-        // String token = node.get("access_token").toString();
-        // System.out.println(token);
-        //세션에 담아준다.
-        // session.setAttribute("id", token);
         
-
-        JsonNode userInfo = kr.getKakaoUserInfo(code);
+        // 로그인 페이지로 넘어가기 위한 임시 id 주입
+		session.setAttribute("id", code);
+		
+        //사용자 정보 요청
+        JsonNode userInfo = kakao.getKakaoUserInfo(code);
 
         System.out.println("userInfo - " + userInfo);
 
-        String id = userInfo.get("id").toString();
-        System.out.println("id - " + id);
-        String email = userInfo.get("kaccount_email").toString();
-        System.out.println("email - " + email);
-        String nickname = userInfo.get("properties").get("nickname").toString();
-        System.out.println("nickname - " + nickname);
+        // Get id
+ 		String id = userInfo.path("id").asText();
+ 		String nickname = null;
+ 		String account_email = userInfo.path("account_email").asText();
+ 		String birthday = userInfo.path("birthday").asText();
 
-
-
-        model.addAttribute("k_userInfo", userInfo);
-        model.addAttribute("id", id);
-        model.addAttribute("email", email);
-        model.addAttribute("nickname", nickname);
-        
+        // 유저정보 카톡에서 가져오기 Get properties
+		JsonNode properties = userInfo.path("properties");
+		
+		if (properties.isMissingNode()) {
+			System.out.println("nickname : ");
+		} else {
+			nickname = properties.path("nickname").asText();
+			System.out.println("nickname : " + nickname);
+			System.out.println("account_emaile : " + account_email);
+			System.out.println("birthday : " + birthday);
+		}        
 
         return "member/main";
     }
@@ -480,7 +481,14 @@ public class MemberAction {
 
 	    
 
+	
+	
+	
+	
+	
 
+
+	
 	
 	//카카오 로그아웃
     @RequestMapping("kakao_logout.do")
