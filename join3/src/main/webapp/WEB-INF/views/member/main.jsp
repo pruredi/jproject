@@ -25,6 +25,24 @@
    <form method="post" action="member_logout.do"> 
    <table id="main_t">
        
+       <%
+        String kakaonickname = request.getParameter("kakaonickname");
+        String profile = request.getParameter("profile");
+        String account_email = request.getParameter("account_email");
+        String birthday = request.getParameter("birthday");
+        
+        session.setAttribute("kakaonickname", kakaonickname);
+        session.setAttribute("profile", profile);
+        session.setAttribute("account_email", account_email);
+        session.setAttribute("birthday", birthday);  
+    	%>
+<%--     <%@ include file="member/login.jsp"%> --%>
+    <%=" (카카오톡) "+session.getAttribute("kakaonickname")%>님 방문을 환영합니다.
+    <%=" (카카오톡) "+session.getAttribute("profile")%>님 방문을 환영합니다.
+    <%=" (카카오톡) "+session.getAttribute("account_email")%>님 방문을 환영합니다.
+    <%=" (카카오톡) "+session.getAttribute("birthday")%>님 방문을 환영합니다.
+           
+       
     <tr>
      <th>회원명</th>
      <td>${join_name}님 로그인을 환영합니다</td>

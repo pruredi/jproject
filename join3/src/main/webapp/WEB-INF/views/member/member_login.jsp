@@ -33,9 +33,6 @@
  }
 </script>
 
-<!-- 카카오 로그인 버튼을 생성  -->
-<script src = "//developers.kakao.com/sdk/js/kakao.min.js"></script>
-
 
 </head>
 <body>
@@ -76,35 +73,12 @@
 	</div>
 
 
- 	<div id="kakao-login_menu">
-		<a id="kakao-login-btn" onclick="location='kakao_login_ok.do'"></a>
-		<a href="http://developers.kakao.com/logout"></a>
+<div id="kakao_id_login" style="text-align: center">
+<%-- <a href="${kakao_url}"> --%>
+<a href="https://kauth.kakao.com/oauth/authorize?client_id=369b216cafcc89156aa8d4dd04ab8675&redirect_uri=http://localhost/join3/kakao_login_ok.do&response_type=code">
+<img width="223" src="<%=request.getContextPath() %>/WEB-INF/views/include/kakao_login_large_wide.png"/></a> </div>
 
-<script type='text/javascript'>
-	Kakao.init('54aecdbad390640bb2ddaecda41426d8'); //자바스크립트 키
-			 
-	//카카오 로그인 버튼을 생성
-	Kakao.Auth.createLoginButton({ 
-		container: '#kakao-login-btn', 
-		success: function(authObj) { 
-			Kakao.API.request({
-				url: '/v1/user/me',
-				success: function(res) {
-					//console.log(res.id);//콘솔 로그에 id 출력(id는 res안에 있기 때문에  res.id 로 불러온다)
-			        //console.log(res.kaccount_email);//콘솔 로그에 email 출력
-			        //var kakaonickname = res.properties.nickname;  //카카오톡 닉네임을 변수에 저장 (닉네임 값을 다른페이지로 넘겨 출력하기 위해서)
-			        // window.location.replace("http://localhost/join3/kakao_login_ok.do?kakaonickname="+kakaonickname);
-			        window.location.replace("http://localhost/join3/kakao_login_ok.do");
-			        //로그인 결과 페이지로 닉네임 값을 넘겨서 출력시킨다.
-			        alert('카카오 로그인')
-				}
-			})
-		},
-		fail: function(error) {
-		alert(JSON.stringify(error));
-		}
-	});
-</script>
+
 
   	</div>
     
