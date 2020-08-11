@@ -36,6 +36,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import project.kakao.kakao;
 import project.model.MemberBean;
 import project.service.MemberServiceImpl;
+import scala.collection.immutable.HashMap;
 
 @Controller
 public class MemberAction {
@@ -395,8 +396,31 @@ public class MemberAction {
 		return "member/member_logout";
 	}
 
-	// 카카오 로그인
 
+	
+	
+	
+	// 카카오 로그인
+	@RequestMapping(value = "/kakao_login_ok.do")
+	public String kakao_login_ok(@RequestParam("code") String code) {
+		System.out.println("/kakao_login_ok.do");
+
+
+		System.out.println("code : " + code);
+		
+		// 토큰 구하기
+		JsonNode token = kakao.getAccessToken(code);
+		
+		System.out.println("token : " + token);
+		System.out.println("JSON 반환 : " + token.get("access_token"));
+
+		
+		
+			
+			
+		return "member/main";
+
+	}
 
 
 

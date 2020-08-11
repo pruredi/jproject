@@ -12,37 +12,19 @@
 
 <body>
 
-<c:if test="${sessionScope.id == null }"> 
+<%-- <c:if test="${sessionScope.id == null }"> 
   <script>
    alert("다시 로그인 해주세요!");
    location.href="<%=request.getContextPath()%>/member_login.do";
   </script>
-</c:if>
+</c:if> --%>
 
 <c:if test="${sessionScope.id != null }">  
  <div id="main_wrap">
    <h2 class="main_title">사용자 메인화면</h2>  
    <form method="post" action="member_logout.do"> 
    <table id="main_t">
-       
-       <%
-        String kakaonickname = request.getParameter("kakaonickname");
-        String profile = request.getParameter("profile");
-        String account_email = request.getParameter("account_email");
-        String birthday = request.getParameter("birthday");
-        
-        session.setAttribute("kakaonickname", kakaonickname);
-        session.setAttribute("profile", profile);
-        session.setAttribute("account_email", account_email);
-        session.setAttribute("birthday", birthday);  
-    	%>
-<%--     <%@ include file="member/login.jsp"%> --%>
-    <%=" (카카오톡) "+session.getAttribute("kakaonickname")%>님 방문을 환영합니다.
-    <%=" (카카오톡) "+session.getAttribute("profile")%>님 방문을 환영합니다.
-    <%=" (카카오톡) "+session.getAttribute("account_email")%>님 방문을 환영합니다.
-    <%=" (카카오톡) "+session.getAttribute("birthday")%>님 방문을 환영합니다.
-           
-       
+          
     <tr>
      <th>회원명</th>
      <td>${join_name}님 로그인을 환영합니다</td>
@@ -62,7 +44,37 @@
    </table>   
    </form>
  </div>
+
 </c:if>
+
+ <div>
+ 	<!-- url 파라미터로 받은 로그인한 아이디 값이 있을시에는 "name+방문을 환영한다"고 출력이 되고, null값일 때에는 "guest님 방문을 환영합니다" 메시지가 출력되도록 한다.-->
+    
+    <%
+        String kakaonickname = request.getParameter("kakaonickname");        
+        session.setAttribute("kakaonickname", kakaonickname);
+        
+        
+        if (kakaonickname == null) {
+    %>
+        guest님 방문을 환영합니다.
+        
+    <%    
+        } else if (kakaonickname != null){
+    %>
+    
+    <%=" (카카오톡) "+session.getAttribute("kakaonickname")%>님 방문을 환영합니다.
+    
+    <form action = "kakao_logout.do" method = "post">
+    <button type = "submit" name = "submit">로그아웃</button></form>
+    
+    <%
+        };
+       
+    %>
+ 
+ </div>
+
 
 </body>
 </html>

@@ -1,8 +1,13 @@
 package project.kakao;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -16,6 +21,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -34,14 +40,15 @@ public class kakao {
       System.out.println("kakaoUrl - " + kakaoUrl);
       return kakaoUrl;
     }
-
+    
     public static JsonNode getAccessToken(String autorize_code) {
+    	
     	final String RequestUrl = "https://kauth.kakao.com/oauth/token";
     	final List<NameValuePair> postParams = new ArrayList<NameValuePair>();
     	postParams.add(new BasicNameValuePair("grant_type", "authorization_code"));
-    	postParams.add(new BasicNameValuePair("client_id", "자기꺼REST API KEY복붙"));
+    	postParams.add(new BasicNameValuePair("client_id", ID));
     	// REST API KEY
-    	postParams.add(new BasicNameValuePair("redirect_uri", "http://localhost:8080/join3/kakaologin.do"));
+    	postParams.add(new BasicNameValuePair("redirect_uri", URI));
     	// 리다이렉트 URI
     	postParams.add(new BasicNameValuePair("code", autorize_code));
     	// 로그인 과정중 얻은 code 값
@@ -54,15 +61,16 @@ public class kakao {
 		    	// JSON 형태 반환값 처리
 		    	ObjectMapper mapper = new ObjectMapper();
 		    	returnNode = mapper.readTree(response.getEntity().getContent());
-	    	} catch (UnsupportedEncodingException e) {
-	    		e.printStackTrace();
-	    	} catch (ClientProtocolException e) {
-	    		e.printStackTrace();
-	    	} catch (IOException e) {
-	    		e.printStackTrace();
-	    	} finally {
-	    			// clear resources
-	    	} return returnNode;
+	        } catch (UnsupportedEncodingException e) {
+	            e.printStackTrace();
+	        } catch (ClientProtocolException e) {
+	            e.printStackTrace();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        } finally {
+	        }
+	 
+	        return returnNode;
     	}
     
     public static JsonNode getKakaoUserInfo(JsonNode accessToken) {
@@ -89,6 +97,9 @@ public class kakao {
     }
 
 
+
+
     
-    
+
+
 

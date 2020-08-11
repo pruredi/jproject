@@ -31,6 +31,15 @@
 	 //자바 스크립트에서 window객체의 open("공지창경로와 파일명","공지창이름","공지창속성")
 	 //메서드로 새로운 공지창을 만듬.폭이 400,높이가 400인 새로운 공지창을 만듬.단위는 픽셀
  }
+
+function kakaogo() {
+	
+ 	var app_key     = "369b216cafcc89156aa8d4dd04ab8675"; 
+ 	var redirect_uri  = "http://localhost/join3/kakao_login_ok.do"; 
+
+ 	location.href = "https://kauth.kakao.com/oauth/authorize?client_id=" + app_key + "&redirect_uri=" + redirect_uri + "&response_type=code";
+ }
+
 </script>
 
 
@@ -65,22 +74,16 @@
     		onclick="pwd_find()" />
     </div>
 
-	<div>
-<!--     <a href = "https://kauth.kakao.com/oauth/authorize?client_id=369b216cafcc89156aa8d4dd04ab8675&redirect_uri=369b216cafcc89156aa8d4dd04ab8675&response_type=code"> -->
-    <a href = "https://kauth.kakao.com/oauth/authorize?client_id=369b216cafcc89156aa8d4dd04ab8675&redirect_uri=http://localhost/join3/kakao_login_ok.do&response_type=code">
-        로그인
-    </a>
-	</div>
 
+<!-- style="text-align: center" -->
 
-<div id="kakao_id_login" style="text-align: center">
-<%-- <a href="${kakao_url}"> --%>
-<a href="https://kauth.kakao.com/oauth/authorize?client_id=369b216cafcc89156aa8d4dd04ab8675&redirect_uri=http://localhost/join3/kakao_login_ok.do&response_type=code">
+<div id="kakao_id_login">
+<input type="button" value="카카오 로그인" onClick="kakaogo();">
+<%-- <a href="https://kauth.kakao.com/oauth/authorize?client_id=369b216cafcc89156aa8d4dd04ab8675&redirect_uri=http://localhost/join3/kakao_login_ok.do&response_type=code">
 <img width="223" src="<%=request.getContextPath() %>/WEB-INF/views/include/kakao_login_large_wide.png"/></a> </div>
-
-
-
+ --%>
   	</div>
+  	
     
   </form>
  </div>

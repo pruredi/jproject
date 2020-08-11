@@ -1,9 +1,12 @@
 package project.service;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import project.dao.MemberDAOImpl;
+import project.kakao.kakao;
 import project.model.MemberBean;
 
 @Service
