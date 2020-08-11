@@ -402,7 +402,7 @@ public class MemberAction {
 	
 	// 카카오 로그인
 	@RequestMapping(value = "/kakao_login_ok.do")
-	public String kakao_login_ok(@RequestParam("code") String code) {
+	public String kakao_login_ok(@RequestParam("code") String code, HttpSession session,Model model) throws Exception {
 		System.out.println("/kakao_login_ok.do");
 
 
@@ -416,14 +416,16 @@ public class MemberAction {
 
 
 		JsonNode userinfo = kakao.getKakaoUserInfo(token.get("access_token").asText());
-		//JsonNode userinfo = kakao.getKakaoUserInfo(code);
 		System.out.println("userinfo : " + userinfo);
-		System.out.println("userinfo - properties : " + userinfo.get("properties"));
-		System.out.println("userinfo - properties2 : " + userinfo.get("properties").getClass());
-		System.out.println("userinfo - kakao_account : " + userinfo.get("kakao_account"));
-		System.out.println("userinfo - kakao_account/asText : " + userinfo.get("kakao_account").asText());
-
 		
+		String id = userinfo.get("properties").get("nickname").asText();
+		String join_id = userinfo.get("kakao_account").get("email").asText();
+		String join_name = userinfo.get("properties").get("nickname").asText();
+		
+		session.setAttribute("id", id);
+		
+		model.addAttribute("join_id", join_id);
+		model.addAttribute("join_name", join_name);
 		
 		return "member/main";
 
@@ -431,13 +433,5 @@ public class MemberAction {
 
 
 
-
-
-
-	    
-
-	
-	
-	
 
 }
