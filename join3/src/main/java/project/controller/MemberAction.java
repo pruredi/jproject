@@ -412,12 +412,19 @@ public class MemberAction {
 		JsonNode token = kakao.getAccessToken(code);
 		
 		System.out.println("token : " + token);
-		System.out.println("JSON 반환 : " + token.get("access_token"));
+		System.out.println("JSON 반환 : " + token.get("access_token").asText());
+
+
+		JsonNode userinfo = kakao.getKakaoUserInfo(token.get("access_token").asText());
+		//JsonNode userinfo = kakao.getKakaoUserInfo(code);
+		System.out.println("userinfo : " + userinfo);
+		System.out.println("userinfo - properties : " + userinfo.get("properties"));
+		System.out.println("userinfo - properties2 : " + userinfo.get("properties").getClass());
+		System.out.println("userinfo - kakao_account : " + userinfo.get("kakao_account"));
+		System.out.println("userinfo - kakao_account/asText : " + userinfo.get("kakao_account").asText());
 
 		
 		
-			
-			
 		return "member/main";
 
 	}

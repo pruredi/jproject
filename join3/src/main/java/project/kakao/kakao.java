@@ -73,30 +73,48 @@ public class kakao {
 	        return returnNode;
     	}
     
-    public static JsonNode getKakaoUserInfo(JsonNode accessToken) {
+    public static JsonNode getKakaoUserInfo(String accesscode) {
+    	
     	final String RequestUrl = "https://kapi.kakao.com/v2/user/me";
-    	final HttpClient client = HttpClientBuilder.create().build();
-    	final HttpPost post = new HttpPost(RequestUrl);
-    	// add header
-    	post.addHeader("Authorization", "Bearer " + accessToken);
-    	JsonNode returnNode = null;
-    	
-	    	try {
-	    		final HttpResponse response = client.execute(post);
-	    		// JSON 형태 반환값 처리
-	    		ObjectMapper mapper = new ObjectMapper();
-	    		returnNode = mapper.readTree(response.getEntity().getContent());
-	    	} catch (ClientProtocolException e) {
-	    		e.printStackTrace();
-	    	} catch (IOException e) {
-	    		e.printStackTrace();
-	    	} finally { // clear resources
-	    	} return returnNode;
-    	
-    	}
-    }
+
+	    String CLIENT_ID = ID; // REST API KEY
+	    String REDIRECT_URI = URI; // 리다이렉트 URI
+	    String code = accesscode; // 로그인 과정중 얻은 토큰 값
 
 
+	    final HttpClient client = HttpClientBuilder.create().build();
+	    final HttpPost post = new HttpPost(RequestUrl);
+
+	    // add header
+
+	    post.addHeader("Authorization", "Bearer " + accesscode);
+	    JsonNode returnNode = null;
+
+	    try {
+	      final HttpResponse response = client.execute(post);
+	      final int responseCode = response.getStatusLine().getStatusCode();
+
+	      System.out.println("\nSending 'POST' request to URL : " + RequestUrl);
+	      System.out.println("Response Code : " + responseCode);
+
+	      //JSON 형태 반환값 처리
+	      ObjectMapper mapper = new ObjectMapper();
+	      returnNode = mapper.readTree(response.getEntity().getContent());
+
+	    } catch (UnsupportedEncodingException e) {
+	      e.printStackTrace();
+	    } catch (ClientProtocolException e) {
+	      e.printStackTrace();
+	    } catch (IOException e) {
+	      e.printStackTrace();
+	    } finally {
+	        // clear resources
+	    }
+	    return returnNode;
+
+	}
+
+}
 
 
     
