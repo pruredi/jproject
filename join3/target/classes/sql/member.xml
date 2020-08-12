@@ -9,7 +9,7 @@
      select *  from joindb where join_id=#{join_id} and join_name=#{join_name}
     </select>
     
-<!--     회원저장 -->
+	<!-- 회원저장 -->
     <insert id="member_join" parameterType="member">
      insert into joindb (code,
      join_id,passwd1,passwd2,
@@ -61,7 +61,11 @@
       passwd2=#{passwd2}
       where join_id=#{join_id}
     </update>
-    
+
+<!--  탈퇴회원 검사 -->
+    <select id="login_check2" parameterType="String" resultType="member">
+     select * from joindb where join_id=#{id} and join_delcont=2
+    </select>
 </mapper>
 
 

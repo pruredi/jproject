@@ -6,9 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <title>로그인</title>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/admin.css" />
+<%-- <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/admin.css" />
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/member.css" />
-<!-- <script src="./js/jquery.js"></script> -->
+ --%>
+ <!-- <script src="./js/jquery.js"></script> -->
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 
 <script>
@@ -76,13 +77,10 @@ function kakaogo() {
 
 
 <!-- style="text-align: center" -->
-
 <div id="kakao_id_login">
-<input type="button" value="카카오 로그인" onClick="kakaogo();">
-<%-- <a href="https://kauth.kakao.com/oauth/authorize?client_id=369b216cafcc89156aa8d4dd04ab8675&redirect_uri=http://localhost/join3/kakao_login_ok.do&response_type=code">
-<img width="223" src="<%=request.getContextPath() %>/WEB-INF/views/include/kakao_login_large_wide.png"/></a> </div>
- --%>
-  	</div>
+	<img src="<%=request.getContextPath()%>/upload/kakao_login_large_narrow.png" onClick="kakaogo();">
+<%-- <input type="" value="카카오 로그인" onClick="kakaogo();" src="<%=request.getContextPath()%>/WEB-INF/views/include/kakao_login_large_wide.png"> --%>
+</div>
   	
     
   </form>

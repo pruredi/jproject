@@ -20,10 +20,15 @@ public class MemberDAOImpl {
 
 	/* 아이디 중복 체크 */
 	public int checkMemberId(String id) throws Exception {
+		System.out.println("dao - checkMemberId");
 		int re = -1;	// 사용 가능한 ID
 		MemberBean mb = (MemberBean) sqlSession.selectOne("login_check", id);
 		if (mb != null)
 			re = 1; 	// 중복id
+		// 탈퇴회원 여부
+		MemberBean mb2 = (MemberBean) sqlSession.selectOne("login_check2", id);
+		if (mb2 != null)
+			re = 2; 	// 중복id
 		return re;
 	}
 	

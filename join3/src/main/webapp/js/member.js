@@ -1,56 +1,72 @@
-﻿function id_check() {
-	var join_id = $("#join_id").val()
-	if($("#join_id").val()==""){
-		var newtext='<font color="red">ID를 입력하세요.</font>';
+﻿
+// 아이디 체크
+
+function id_check(){
+	$("#idcheck").hide();//idcheck span 아이디 영역을 숨긴다.
+	var memid=$("#join_id").val();
+	//1.입력글자 길이 체크
+	if($.trim($("#join_id").val()).length < 3){
+		var newtext='<font color="red">아이디는 3자 이상이어야 합니다.</font>';
 		$("#idcheck").text('');
 		$("#idcheck").show();
-		$("#idcheck").append(newtext);//아이디 영역에 경고문자 추가
+		$("#idcheck").append(newtext);//span 아이디 영역에 경고문자 추가
 		$("#join_id").val("").focus();
 		return false;
-	} else if($.trim($("#join_id").val()).length < 4){
-		var newtext='<font color="red">아이디는 4자 이상이어야 합니다.</font>';
-		$("#idcheck").text('');
-		$("#idcheck").show();
-		$("#idcheck").append(newtext);//아이디 영역에 경고문자 추가
-		$("#join_id").val("").focus();
-		return false;
-	} else if($.trim($("#join_id").val()).length >12){
+	};
+	if($.trim($("#join_id").val()).length >12){
 		var newtext='<font color="red">아이디는 12자 이하이어야 합니다.</font>';
 		$("#idcheck").text('');
 		$("#idcheck").show();
-		$("#idcheck").append(newtext);//아이디 영역에 경고문자 추가
+		$("#idcheck").append(newtext);//span 아이디 영역에 경고문자 추가
 		$("#join_id").val("").focus();
 		return false;
-	} else {	
-	    $.ajax({
-	        type:"POST",
-	        url:"member_idcheck.do",
-	        data: {"join_id":join_id},        
-	        success: function (data) { 
-	        	//alert("return success="+data);
-	      	  if(data==1){	//중복 ID
-	      		var newtext='<font color="red">중복 아이디입니다.</font>';
-	      			$("#idcheck").text('');
-	        		$("#idcheck").show();
-	        		$("#idcheck").append(newtext);
-	          		$("#join_id").val('').focus();
-	          		return false;
-		     
-	      	  }else{	//사용 가능한 ID
-	      		var newtext='<font color="blue">사용가능한 아이디입니다.</font>';
-	      		$("#idcheck").text('');
-	      		$("#idcheck").show();
-	      		$("#idcheck").append(newtext);
-	      		$("#passwd1").focus();
-	      	  }  	    	  
-	        }
-	        , error:function(e){
-	    		  alert("data error"+e);
-	    	  }
-	      });//$.ajax			
 	};
-}
+	//입력아이디 유효성 검사
+//	if(!(validate_userid(memid))){
+//		var newtext='<font color="red">아이디는 영문소문자,숫자,_ 조합만 가능합니다.</font>';
+//		$("#idcheck").text('');//문자 초기화
+//		$("#idcheck").show();//span 아이디 영역을 보이게 한다.
+//		$("#idcheck").append(newtext);
+//		$("#join_id").val("").focus();
+//		return false;
+//	};
+	
 
+	//아이디 중복확인
+    $.ajax({
+        type:"POST",
+        url:"member_idcheck.do",
+        data: {"memid":memid},        
+        success: function (data) { 
+      	  if(data==1){	//중복 ID
+      		var newtext='<font color="red">중복 아이디입니다.</font>';
+      			$("#idcheck").text('');
+        		$("#idcheck").show();
+        		$("#idcheck").append(newtext);
+          		$("#join_id").val('').focus();
+          		return false;
+          } else if(data==2){	//탈퇴 ID
+        	var newtext='<font color="red">중복 아이디입니다.</font>';
+      			$("#idcheck").text('');
+        		$("#idcheck").show();
+        		$("#idcheck").append(newtext);
+          		$("#join_id").val('').focus();
+          		return false;
+      	  }else{	//사용 가능한 ID
+      		var newtext='<font color="blue">사용가능한 아이디입니다.</font>';
+      		$("#idcheck").text('');
+      		$("#idcheck").show();
+      		$("#idcheck").append(newtext);
+      		$("#passwd1").focus();
+      	  }  	    	  
+        }
+        ,
+    	  error:function(e){
+    		  alert("data error"+e);
+    	  }
+      });//$.ajax	
+};
+/*아이디 중복 체크 끝*/
 
 
 $(document).ready(function(){
