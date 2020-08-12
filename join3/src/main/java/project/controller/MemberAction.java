@@ -185,15 +185,22 @@ public class MemberAction {
 			Model model) throws Exception {
 		System.out.println("/member_login_ok.do");
 		int result = 0;
+		int delresult = memberService.deluserCheck(id);
 		MemberBean mb = memberService.userCheck(id);
-
-		if (mb == null) { // 등록되지 않은 회원일때
-
+		
+		if (delresult == 2) {// 탈퇴한 회원 일때
 			result = 1;
 			model.addAttribute("result", result);
-
-			System.out.println("등록되지 않은 회원일때");
+			System.out.println("탈퇴 회원일때");
+			
 			return "member/loginResult";
+			
+		} else if (mb == null) { // 등록되지 않은 회원일때
+
+				result = 1;
+				model.addAttribute("result", result);
+
+				return "member/loginResult";
 
 		} else { // 등록된 회원일때
 			if (mb.getPasswd1().equals(pwd)) {// 비번이 같을때
@@ -240,8 +247,8 @@ public class MemberAction {
 				return "member/loginResult";
 			}
 		}
-		// 탈퇴한 회원 일때
-		// 추가예정
+
+
 
 	}
 

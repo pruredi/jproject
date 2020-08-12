@@ -34,6 +34,11 @@ public class MemberServiceImpl {
 		return memberDao.userCheck(id);		
 	}
 	
+	public int deluserCheck(String id) throws Exception{
+		System.out.println("service - deluserCheck");
+		return memberDao.deluserCheck(id);		
+	}
+	
 	public void updateMember(MemberBean member) throws Exception{
 		System.out.println("service - updateMember");
 		memberDao.updateMember(member);

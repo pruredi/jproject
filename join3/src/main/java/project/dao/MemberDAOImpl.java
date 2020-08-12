@@ -42,6 +42,16 @@ public class MemberDAOImpl {
 		System.out.println("dao - userCheck");
 		return (MemberBean) sqlSession.selectOne("login_check", id);
 	}
+	
+	/* 탈퇴 유저 로그인 인증 체크 */
+	public int deluserCheck(String id) throws Exception {
+		System.out.println("dao - userCheck");
+		MemberBean mb2 = (MemberBean) sqlSession.selectOne("login_check2", id);
+		int re = 0;
+		if (mb2 != null)
+			re = 2; 	// 중복id
+		return re;
+	}
 
 	/* 회원수정 */
 	public void updateMember(MemberBean member) throws Exception {
