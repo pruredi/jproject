@@ -416,19 +416,20 @@ public class MemberAction {
 		JsonNode token = kakao.getAccessToken(code);
 		System.out.println("token : " + token);
 
-
 		JsonNode userinfo = kakao.getKakaoUserInfo(token.get("access_token").asText());
 
 		String id = userinfo.get("properties").get("nickname").asText();
 		String join_id = userinfo.get("kakao_account").get("email").asText();
 		String join_name = userinfo.get("properties").get("nickname").asText();
 		
-		session.setAttribute("id", id);
-		
 		String join_delcont = "3";
+		
+		session.setAttribute("id", id);
+		session.setAttribute("join_delcont", join_delcont);
+
 		model.addAttribute("join_id", join_id);
 		model.addAttribute("join_name", join_name);
-		model.addAttribute("join_delcont", join_delcont);
+		
 		
 		return "member/main";
 
