@@ -399,7 +399,14 @@ public class MemberAction {
 	@RequestMapping("member_logout.do")
 	public String logout(HttpSession session) {
 		session.invalidate();
+		
+		//if(session.getAttribute("access_Token") != null) {
 
+//		kakao.kakaoLogout((String)session.getAttribute("access_Token"));
+//		
+//		session.removeAttribute("access_Token");
+//		session.removeAttribute("userId");
+		//}
 		return "member/member_logout";
 	}
 
