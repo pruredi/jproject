@@ -17,7 +17,7 @@ CREATE TABLE joindb (
 	email VARCHAR2(30), /* 이메일 */
 	join_joindate date, /* 가입 날짜 */
 	join_deldate date, /* 탈퇴 날짜 */	
-	join_delcont  VARCHAR2(10) /* 탈퇴회원여부 */
+	join_delcont  VARCHAR2(10) /* 탈퇴회원여부,소셜로그인 여부 */
 );
 
 

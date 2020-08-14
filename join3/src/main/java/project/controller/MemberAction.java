@@ -411,28 +411,24 @@ public class MemberAction {
 	@RequestMapping(value = "/kakao_login_ok.do")
 	public String kakao_login_ok(@RequestParam("code") String code, HttpSession session,Model model) throws Exception {
 		System.out.println("/kakao_login_ok.do");
-
-
-		System.out.println("code : " + code);
 		
 		// 토큰 구하기
 		JsonNode token = kakao.getAccessToken(code);
-		
 		System.out.println("token : " + token);
-		System.out.println("JSON 반환 : " + token.get("access_token").asText());
 
 
 		JsonNode userinfo = kakao.getKakaoUserInfo(token.get("access_token").asText());
-		System.out.println("userinfo : " + userinfo);
-		
+
 		String id = userinfo.get("properties").get("nickname").asText();
 		String join_id = userinfo.get("kakao_account").get("email").asText();
 		String join_name = userinfo.get("properties").get("nickname").asText();
 		
 		session.setAttribute("id", id);
 		
+		String join_delcont = "3";
 		model.addAttribute("join_id", join_id);
 		model.addAttribute("join_name", join_name);
+		model.addAttribute("join_delcont", join_delcont);
 		
 		return "member/main";
 

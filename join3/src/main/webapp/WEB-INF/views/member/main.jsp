@@ -48,25 +48,24 @@
 </c:if>
 
  <div>
- 	<!-- url 파라미터로 받은 로그인한 아이디 값이 있을시에는 "name+방문을 환영한다"고 출력이 되고, null값일 때에는 "guest님 방문을 환영합니다" 메시지가 출력되도록 한다.-->
+ 	<!-- url 파라미터로 받은 로그인한 아이디 값이 있을시에는 "name+방문을 환영한다"고 출력되도록 한다.-->
     
     <%
         String kakaonickname = request.getParameter("kakaonickname");        
         session.setAttribute("kakaonickname", kakaonickname);
-        
-        
-        if (kakaonickname == null) {
     %>
-        guest님 방문을 환영합니다.
         
     <%    
-        } else if (kakaonickname != null){
+		if (kakaonickname != null){
     %>
     
     <%=" (카카오톡) "+session.getAttribute("kakaonickname")%>님 방문을 환영합니다.
     
-    <form action = "kakao_logout.do" method = "post">
-    <button type = "submit" name = "submit">로그아웃</button></form>
+    <tr>
+     <th colspan="2">
+     <input type="submit" value="로그아웃" class="input_button" />     
+     </th>
+    </tr>  
     
     <%
         };
