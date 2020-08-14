@@ -396,17 +396,18 @@ public class MemberAction {
 	}
 
 	// 로그아웃
+	// 카카오 로그아웃 미구현
 	@RequestMapping("member_logout.do")
 	public String logout(HttpSession session) {
+		System.out.println("member_logout.do");
+		System.out.println(session.getAttribute("join_delcont"));
+		
 		session.invalidate();
 		
-		//if(session.getAttribute("access_Token") != null) {
-
-//		kakao.kakaoLogout((String)session.getAttribute("access_Token"));
-//		
+//		System.out.println(session.getAttribute("access_Token"));
 //		session.removeAttribute("access_Token");
 //		session.removeAttribute("userId");
-		//}
+		
 		return "member/member_logout";
 	}
 
