@@ -396,7 +396,7 @@ public class MemberAction {
 	}
 
 	// 로그아웃
-	// 카카오 로그아웃 미구현
+	// 카카오 로그아웃 미구현(세션 확인 후 해지 또는 로그아웃 연결)
 	@RequestMapping("member_logout.do")
 	public String logout(HttpSession session) {
 		System.out.println("member_logout.do");
